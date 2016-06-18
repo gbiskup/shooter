@@ -15,5 +15,12 @@ bool GameplayScene::init()
 	{
 		return false;
 	}
+	initKeyobardController();
 	return true;
+}
+
+void GameplayScene::initKeyobardController()
+{
+	auto keyboardController = KeyboardController::create();
+	_eventDispatcher->addEventListenerWithSceneGraphPriority(static_cast<EventListenerKeyboard*>(keyboardController), this);
 }

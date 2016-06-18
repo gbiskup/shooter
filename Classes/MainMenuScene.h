@@ -10,13 +10,14 @@ class MainMenuScene : public Layer
 {
 public:
 	static Scene* createScene();
-
 	virtual bool init();
+	CREATE_FUNC(MainMenuScene);
+
 private:
 	Menu * menu;
 	void exitCallback(Ref* sender);
 	void startCallback(Ref* sender);
 	void addItem(const string&, const ccMenuCallback&);
 
-	CREATE_FUNC(MainMenuScene);
+
 };

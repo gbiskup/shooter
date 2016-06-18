@@ -34,8 +34,7 @@ bool MainMenuScene::init()
 
 void MainMenuScene::startCallback(Ref* sender)
 {
-	log("Start game");
-	Director::getInstance()->pushScene(  )
+	Director::getInstance()->replaceScene(GameplayScene::createScene());
 }
 
 void MainMenuScene::exitCallback(Ref* sender)
