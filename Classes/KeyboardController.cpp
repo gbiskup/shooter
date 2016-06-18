@@ -1,4 +1,5 @@
 #include "KeyboardController.h"
+#include "GameplayScene.h"
 
 bool KeyboardController::init()
 {
@@ -11,12 +12,35 @@ bool KeyboardController::init()
 	return true;
 }
 
+void KeyboardController::registerKeyDownCallback(EventKeyboard::KeyCode keyCode, function<void()> callback)
+{
+	keyDownToAction[keyCode] = callback;
+}
+
+void KeyboardController::registerKeyUpCallback(EventKeyboard::KeyCode keyCode, function<void()> callback)
+{
+	keyUpToAction[keyCode] = callback;
+}
+
 void KeyboardController::handleKeyPressed(EventKeyboard::KeyCode code, Event *event)
 {
-	log("Key pressed");
+	auto mapping = keyDownToAction.find(code);
+	if (mapping != keyDownToAction.end())
+	{
+		mapping->second();
+	}
 }
 
 void KeyboardController::handleKeyReleased(EventKeyboard::KeyCode code, Event *event)
 {
-	log("Key released");
+	auto mapping = keyUpToAction.find(code);
+	if (mapping != keyUpToAction.end())
+	{
+		mapping->second();
+	}
+}
+
+void KeyboardController::enable(Node * target)
+{
+	target->getEventDispatcher()->addEventListenerWithSceneGraphPriority(this, target);
 }

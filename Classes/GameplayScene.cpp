@@ -1,5 +1,6 @@
-#include "GameplayScene.h"
 #include <string>
+#include "GameplayScene.h"
+#include "MainMenuScene.h"
 
 Scene* GameplayScene::createScene()
 {
@@ -16,11 +17,23 @@ bool GameplayScene::init()
 		return false;
 	}
 	initKeyobardController();
+	this->scheduleUpdate();
 	return true;
+}
+
+void GameplayScene::update(float delta)
+{
+	
 }
 
 void GameplayScene::initKeyobardController()
 {
-	auto keyboardController = KeyboardController::create();
-	_eventDispatcher->addEventListenerWithSceneGraphPriority(static_cast<EventListenerKeyboard*>(keyboardController), this);
+	keyboardController = KeyboardController::create();
+	keyboardController->registerKeyDownCallback(EventKeyboard::KeyCode::KEY_ESCAPE, CC_CALLBACK_0(GameplayScene::returnToMenu, this));
+	keyboardController->enable(this);
+}
+
+void GameplayScene::returnToMenu()
+{
+	Director::getInstance()->replaceScene(MainMenuScene::createScene());
 }

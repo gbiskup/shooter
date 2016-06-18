@@ -18,6 +18,4 @@ private:
 	void exitCallback(Ref* sender);
 	void startCallback(Ref* sender);
 	void addItem(const string&, const ccMenuCallback&);
-
-
 };
