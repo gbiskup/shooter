@@ -8,3 +8,5 @@
 /proj.win10
 /proj.win32/Shooter.vcxproj.user
 *.DS_Store
+/proj.win32/Shooter.VC.VC.opendb
+/proj.win32/Shooter.VC.db
