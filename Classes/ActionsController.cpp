@@ -17,6 +17,10 @@ void ActionsController::startAction(const ActionType& actionType)
 	{
 		actions[actionType] = 1;
 	}
+	else
+	{
+		actionToStart->second = 1;
+	}
 }
 
 void ActionsController::stopAction(const ActionType& actionType)

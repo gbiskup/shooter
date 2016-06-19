@@ -24,7 +24,7 @@ protected:
 	Vec2 moveDirection;
 
 private:
-	float moveSpeed = 30.f;
+	float moveSpeed = 300.f;
 	void updateMovement();
 	void applyMovement();
 };

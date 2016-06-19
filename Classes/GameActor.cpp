@@ -21,20 +21,22 @@ void GameActor::updateMovement()
 	moveDirection.setZero();
 	if (actionsController.isActionOn(ActionsController::ActionType::MOVE_UP))
 	{
-		moveDirection.y += 30;
+		moveDirection.y += moveSpeed;
 	}
 	if (actionsController.isActionOn(ActionsController::ActionType::MOVE_DOWN))
 	{
-		moveDirection.y -= 30;
+		moveDirection.y -= moveSpeed;
 	}
 	if (actionsController.isActionOn(ActionsController::ActionType::MOVE_LEFT))
 	{
-		moveDirection.x -= 30;
+		moveDirection.x -= moveSpeed;
 	}
 	if (actionsController.isActionOn(ActionsController::ActionType::MOVE_RIGHT))
 	{
-		moveDirection.y += 30;
+		moveDirection.x += moveSpeed;
 	}
+	moveDirection.normalize();
+	moveDirection.scale(moveSpeed);
 }
 
 void GameActor::applyMovement()

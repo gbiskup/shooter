@@ -11,7 +11,6 @@ bool KeyboardController::init()
 	this->onKeyReleased = CC_CALLBACK_2(KeyboardController::handleKeyReleased, this);
 	return true;
 }
-
 void KeyboardController::registerKeyDownCallback(EventKeyboard::KeyCode keyCode, function<void()> callback)
 {
 	keyDownToAction[keyCode] = callback;
@@ -22,20 +21,22 @@ void KeyboardController::registerKeyUpCallback(EventKeyboard::KeyCode keyCode, f
 	keyUpToAction[keyCode] = callback;
 }
 
-void KeyboardController::handleKeyPressed(EventKeyboard::KeyCode code, Event *event)
+void KeyboardController::handleKeyPressed(EventKeyboard::KeyCode code, Event *event) const
 {
 	auto mapping = keyDownToAction.find(code);
 	if (mapping != keyDownToAction.end())
 	{
+		event->stopPropagation();
 		mapping->second();
 	}
 }
 
-void KeyboardController::handleKeyReleased(EventKeyboard::KeyCode code, Event *event)
+void KeyboardController::handleKeyReleased(EventKeyboard::KeyCode code, Event *event) const
 {
 	auto mapping = keyUpToAction.find(code);
 	if (mapping != keyUpToAction.end())
 	{
+		event->stopPropagation();
 		mapping->second();
 	}
 }

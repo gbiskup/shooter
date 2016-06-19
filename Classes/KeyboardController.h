@@ -15,8 +15,8 @@ public:
 	CREATE_FUNC(KeyboardController);
 
 private:
-	void handleKeyPressed(EventKeyboard::KeyCode, Event*);
-	void handleKeyReleased(EventKeyboard::KeyCode, Event*);
+	void handleKeyPressed(EventKeyboard::KeyCode, Event*) const;
+	void handleKeyReleased(EventKeyboard::KeyCode, Event*) const;
 	map <EventKeyboard::KeyCode, function<void()>> keyDownToAction;
 	map <EventKeyboard::KeyCode, function<void()>> keyUpToAction;
 	map <EventKeyboard::KeyCode, bool> keysDown;
