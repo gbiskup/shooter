@@ -10,14 +10,20 @@
     <Filter Include="src">
       <UniqueIdentifier>{bb6c862e-70e9-49d9-81b7-3829a6f50471}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\scenes">
-      <UniqueIdentifier>{cb37749c-bf9c-4796-b4fc-3d3c3b3faf23}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src\inputController">
       <UniqueIdentifier>{f2f17b3f-cdf6-4dae-9c3d-81e5ba4349f5}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\inputController\keyboard">
       <UniqueIdentifier>{3e65e9f8-2ec8-4250-b4a2-59144edf4b25}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\gameplay">
+      <UniqueIdentifier>{3f7b34b6-2bf7-4b00-86e4-0c93def0c8fb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\mainMenu">
+      <UniqueIdentifier>{cb37749c-bf9c-4796-b4fc-3d3c3b3faf23}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\gameplay\Actors">
+      <UniqueIdentifier>{65be3844-414e-417b-8776-62d2a2e6ac06}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -27,14 +33,17 @@
     <ClCompile Include="..\Classes\AppDelegate.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\GameplayScene.cpp">
-      <Filter>src\scenes</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\MainMenuScene.cpp">
-      <Filter>src\scenes</Filter>
+      <Filter>src\mainMenu</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\KeyboardController.cpp">
       <Filter>src\inputController\keyboard</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\GameplayScene.cpp">
+      <Filter>src\gameplay</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\GameActor.cpp">
+      <Filter>src\gameplay\Actors</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -44,14 +53,17 @@
     <ClInclude Include="..\Classes\AppDelegate.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\GameplayScene.h">
-      <Filter>src\scenes</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\MainMenuScene.h">
-      <Filter>src\scenes</Filter>
+      <Filter>src\mainMenu</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\KeyboardController.h">
       <Filter>src\inputController\keyboard</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GameplayScene.h">
+      <Filter>src\gameplay</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GameActor.h">
+      <Filter>src\gameplay\Actors</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

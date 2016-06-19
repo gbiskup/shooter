@@ -1,6 +1,6 @@
-#include "MainMenuScene.h"
-#include "SimpleAudioEngine.h"
 #include <string>
+#include "MainMenuScene.h"
+#include "AssetConstants.h"
 
 Scene* MainMenuScene::createScene()
 {
@@ -44,7 +44,7 @@ void MainMenuScene::exitCallback(Ref* sender)
 
 void MainMenuScene::addItem(const string & text, const ccMenuCallback& callback)
 {
-	auto label = Label::createWithTTF(text, "fonts/Marker Felt.ttf", 24);
+	auto label = Label::createWithTTF(text, FontPaths::MENU_FONT_PATH, 24);
 	auto menuItem = MenuItemLabel::create(label, callback);
 	menu->addChild(menuItem);
 }

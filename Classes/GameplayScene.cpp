@@ -1,11 +1,13 @@
 #include <string>
 #include "GameplayScene.h"
 #include "MainMenuScene.h"
+#include "GameActor.h"
 
 Scene* GameplayScene::createScene()
 {
-	auto scene = Scene::create();
+	auto scene = Scene::createWithPhysics();
 	auto layer = GameplayScene::create();
+	layer->setPhysicsWorld( scene->getPhysicsWorld() );
 	scene->addChild(layer);
 	return scene;
 }
@@ -17,6 +19,7 @@ bool GameplayScene::init()
 		return false;
 	}
 	initKeyobardController();
+	initPlayer();
 	this->scheduleUpdate();
 	return true;
 }
@@ -24,6 +27,12 @@ bool GameplayScene::init()
 void GameplayScene::update(float delta)
 {
 	
+}
+
+void GameplayScene::initPlayer()
+{
+	auto player = GameActor::create();
+	addChild(player);
 }
 
 void GameplayScene::initKeyobardController()
