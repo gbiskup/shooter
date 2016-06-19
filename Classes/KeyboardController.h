@@ -19,4 +19,5 @@ private:
 	void handleKeyReleased(EventKeyboard::KeyCode, Event*);
 	map <EventKeyboard::KeyCode, function<void()>> keyDownToAction;
 	map <EventKeyboard::KeyCode, function<void()>> keyUpToAction;
+	map <EventKeyboard::KeyCode, bool> keysDown;
 };

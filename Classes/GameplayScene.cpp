@@ -2,12 +2,14 @@
 #include "GameplayScene.h"
 #include "MainMenuScene.h"
 #include "GameActor.h"
+#include "ActorFactory.h"
 
 Scene* GameplayScene::createScene()
 {
 	auto scene = Scene::createWithPhysics();
+	scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
+	scene->getPhysicsWorld()->setGravity(Vec2::ZERO);
 	auto layer = GameplayScene::create();
-	layer->setPhysicsWorld( scene->getPhysicsWorld() );
 	scene->addChild(layer);
 	return scene;
 }
@@ -31,7 +33,8 @@ void GameplayScene::update(float delta)
 
 void GameplayScene::initPlayer()
 {
-	auto player = GameActor::create();
+	ActorFactory factory;
+	auto player = factory.createActorOfType(ActorType::HERO);
 	addChild(player);
 }
 

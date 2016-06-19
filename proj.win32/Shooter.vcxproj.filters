@@ -22,8 +22,23 @@
     <Filter Include="src\mainMenu">
       <UniqueIdentifier>{cb37749c-bf9c-4796-b4fc-3d3c3b3faf23}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\gameplay\Actors">
+    <Filter Include="src\gameplay\actors">
       <UniqueIdentifier>{65be3844-414e-417b-8776-62d2a2e6ac06}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\gameplay\actors\factory">
+      <UniqueIdentifier>{ce90bc27-e5a1-48da-a11a-409a2eab9949}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\gameplay\actors\hero">
+      <UniqueIdentifier>{8c42526e-5377-4290-b4fc-953fe7e38137}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\gameplay\actors\actions">
+      <UniqueIdentifier>{95b0d67d-519b-4695-ba9d-a2cc91000c3a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\gameplay\scene">
+      <UniqueIdentifier>{ed91fb64-0fa3-4a30-99fa-b51e7868221b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\gameplay\actors\baseActor">
+      <UniqueIdentifier>{ae208004-095e-4d2c-85fc-88a373c82ee5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -39,11 +54,20 @@
     <ClCompile Include="..\Classes\KeyboardController.cpp">
       <Filter>src\inputController\keyboard</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\ActorFactory.cpp">
+      <Filter>src\gameplay\actors\factory</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Hero.cpp">
+      <Filter>src\gameplay\actors\hero</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\ActionsController.cpp">
+      <Filter>src\gameplay\actors\actions</Filter>
+    </ClCompile>
     <ClCompile Include="..\Classes\GameplayScene.cpp">
-      <Filter>src\gameplay</Filter>
+      <Filter>src\gameplay\scene</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\GameActor.cpp">
-      <Filter>src\gameplay\Actors</Filter>
+      <Filter>src\gameplay\actors\baseActor</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -59,11 +83,23 @@
     <ClInclude Include="..\Classes\KeyboardController.h">
       <Filter>src\inputController\keyboard</Filter>
     </ClInclude>
+    <ClInclude Include="..\Classes\ActorFactory.h">
+      <Filter>src\gameplay\actors\factory</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Hero.h">
+      <Filter>src\gameplay\actors\hero</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\AssetConstants.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\ActionsController.h">
+      <Filter>src\gameplay\actors\actions</Filter>
+    </ClInclude>
     <ClInclude Include="..\Classes\GameplayScene.h">
-      <Filter>src\gameplay</Filter>
+      <Filter>src\gameplay\scene</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\GameActor.h">
-      <Filter>src\gameplay\Actors</Filter>
+      <Filter>src\gameplay\actors\baseActor</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

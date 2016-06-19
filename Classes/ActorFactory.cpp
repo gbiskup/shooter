@@ -1,4 +1,5 @@
 #include "ActorFactory.h"
+#include "Hero.h"
 
 GameActor * ActorFactory::createActorOfType(ActorType actorType)
 {
@@ -18,6 +19,9 @@ GameActor * ActorFactory::createActorOfType(ActorType actorType)
 
 GameActor * ActorFactory::createHero()
 {
-
+	auto hero = Hero::create();
+	hero->setPhysicsBody(PhysicsBody::createCircle(30, PhysicsMaterial(0.0f, 1.0f, 0.0f)));
+	hero->setPosition(Vec2(500, 500));
+	return static_cast<GameActor*>(hero);
 }
 

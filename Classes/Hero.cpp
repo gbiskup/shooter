@@ -1,4 +1,5 @@
 #include "Hero.h"
+#include "KeyboardController.h";
 
 bool Hero::init()
 {
@@ -6,5 +7,8 @@ bool Hero::init()
 	{
 		return false;
 	}
+	keyboardController = KeyboardController::create();
+	keyboardController->enable(this);
+	actionsController.startAction(ActionsController::ActionType::MOVE_DOWN);
 	return true;
 }
