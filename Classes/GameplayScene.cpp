@@ -4,6 +4,12 @@
 #include "GameActor.h"
 #include "ActorFactory.h"
 
+GameplayScene::~GameplayScene()
+{
+	log("Destroy gameplay");
+	keyboardController->disable();
+}
+
 Scene* GameplayScene::createScene()
 {
 	auto scene = Scene::createWithPhysics();
@@ -20,7 +26,7 @@ bool GameplayScene::init()
 	{
 		return false;
 	}
-	initKeyobardController();
+	initKeyboardController();
 	initPlayer();
 	this->scheduleUpdate();
 	return true;
@@ -34,11 +40,11 @@ void GameplayScene::update(float delta)
 void GameplayScene::initPlayer()
 {
 	ActorFactory factory;
-	auto player = factory.createActorOfType(ActorType::HERO);
-	addChild(player);
+	hero = dynamic_cast<Hero*>(factory.createActorOfType(ActorType::HERO));
+	addChild(hero);
 }
 
-void GameplayScene::initKeyobardController()
+void GameplayScene::initKeyboardController()
 {
 	keyboardController = KeyboardController::create();
 	keyboardController->registerKeyDownCallback(EventKeyboard::KeyCode::KEY_ESCAPE, CC_CALLBACK_0(GameplayScene::returnToMenu, this));

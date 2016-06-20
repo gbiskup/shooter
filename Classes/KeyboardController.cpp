@@ -1,6 +1,12 @@
 #include "KeyboardController.h"
 #include "GameplayScene.h"
 
+KeyboardController::~KeyboardController()
+{
+	log("Destructor keyboard controller");
+	disable();
+}
+
 bool KeyboardController::init()
 {
 	if (!EventListenerKeyboard::init())
@@ -43,5 +49,16 @@ void KeyboardController::handleKeyReleased(EventKeyboard::KeyCode code, Event *e
 
 void KeyboardController::enable(Node * target)
 {
+	disable();
+	this->target = target;
 	target->getEventDispatcher()->addEventListenerWithSceneGraphPriority(this, target);
+}
+
+void KeyboardController::disable()
+{
+	if (target)
+	{
+		target->getEventDispatcher()->removeEventListener(this);
+		target = nullptr;
+	}
 }

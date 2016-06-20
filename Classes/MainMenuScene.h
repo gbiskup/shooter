@@ -9,6 +9,7 @@ using namespace std;
 class MainMenuScene : public Layer
 {
 public:
+	~MainMenuScene();
 	static Scene* createScene();
 	virtual bool init();
 	CREATE_FUNC(MainMenuScene);

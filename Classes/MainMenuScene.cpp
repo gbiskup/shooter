@@ -2,6 +2,11 @@
 #include "MainMenuScene.h"
 #include "AssetConstants.h"
 
+MainMenuScene::~MainMenuScene()
+{
+	log("Menu is destroyed");
+}
+
 Scene* MainMenuScene::createScene()
 {
 	auto scene = Scene::create();

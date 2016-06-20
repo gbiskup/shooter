@@ -8,10 +8,12 @@ using namespace std;
 class KeyboardController : private EventListenerKeyboard
 {
 public:
+	~KeyboardController();
 	virtual bool init();
 	void registerKeyDownCallback(EventKeyboard::KeyCode, function<void()>);
 	void registerKeyUpCallback(EventKeyboard::KeyCode, function<void()>);
-	void KeyboardController::enable(Node * target);
+	void enable(Node * target);
+	void disable();
 	CREATE_FUNC(KeyboardController);
 
 private:
@@ -20,4 +22,5 @@ private:
 	map <EventKeyboard::KeyCode, function<void()>> keyDownToAction;
 	map <EventKeyboard::KeyCode, function<void()>> keyUpToAction;
 	map <EventKeyboard::KeyCode, bool> keysDown;
+	Node* target = nullptr;
 };

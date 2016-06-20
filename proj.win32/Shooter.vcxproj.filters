@@ -40,6 +40,9 @@
     <Filter Include="src\gameplay\actors\baseActor">
       <UniqueIdentifier>{ae208004-095e-4d2c-85fc-88a373c82ee5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\inputController\mouse">
+      <UniqueIdentifier>{810c0a98-6542-4e86-9cd2-7cb7857f36ca}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -68,6 +71,9 @@
     </ClCompile>
     <ClCompile Include="..\Classes\GameActor.cpp">
       <Filter>src\gameplay\actors\baseActor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\MouseController.cpp">
+      <Filter>src\inputController\mouse</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -100,6 +106,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\GameActor.h">
       <Filter>src\gameplay\actors\baseActor</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\MouseController.h">
+      <Filter>src\inputController\mouse</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
