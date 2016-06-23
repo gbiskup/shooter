@@ -20,7 +20,10 @@ GameActor * ActorFactory::createActorOfType(ActorType actorType)
 GameActor * ActorFactory::createHero()
 {
 	auto hero = Hero::create();
-	hero->setPhysicsBody(PhysicsBody::createCircle(30, PhysicsMaterial(0.0f, 1.0f, 0.0f)));
+	size.width = 100;
+	size.height = 40;
+	//hero->setPhysicsBody(PhysicsBody::createCircle(30, PhysicsMaterial(0.0f, 1.0f, 0.0f)));
+	hero->setPhysicsBody(PhysicsBody::createBox(size, PhysicsMaterial(0.0f, 1.0f, 0.0f)));
 	hero->setPosition(Vec2(500, 500));
 	return static_cast<GameActor*>(hero);
 }

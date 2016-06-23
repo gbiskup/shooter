@@ -11,7 +11,7 @@ class ActorFactory
 {
 public:
 	GameActor * createActorOfType( ActorType );
-
+	Size size;
 private:
 	GameActor * createHero();
 };

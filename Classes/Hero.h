@@ -21,5 +21,5 @@ private:
 	void mouseMoveHandler(EventMouse*);
 	KeyboardController * keyboardController;
 	MouseController * mouseController;
-
+	EventListenerMouse * mouseEventListener;
 };
