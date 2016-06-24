@@ -15,7 +15,7 @@ public:
 		ATTACK
 	};
 
-	bool isActionOn(const ActionType&);
+	bool isActionOn(const ActionType&) const;
 	void startAction(const ActionType&);
 	void stopAction(const ActionType&);
 private:

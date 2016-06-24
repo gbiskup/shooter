@@ -37,12 +37,12 @@ bool MainMenuScene::init()
 	return true;
 }
 
-void MainMenuScene::startCallback(Ref* sender)
+void MainMenuScene::startCallback(const Ref* sender)
 {
 	Director::getInstance()->replaceScene(GameplayScene::createScene());
 }
 
-void MainMenuScene::exitCallback(Ref* sender)
+void MainMenuScene::exitCallback(const Ref* sender)
 {
 	Director::getInstance()->end();
 }

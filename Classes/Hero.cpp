@@ -20,6 +20,11 @@ bool Hero::init()
 	return true;
 }
 
+void Hero::pickUpWeapon(Weapon * weaponToUse)
+{
+	weapon = weaponToUse;
+}
+
 void Hero::initMouseController()
 {
 	//auto mouseEventListener = EventListenerMouse::create();

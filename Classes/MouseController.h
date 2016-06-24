@@ -8,7 +8,7 @@ using namespace std;
 class MouseController : private EventListenerMouse
 {
 public:
-	virtual bool init();
+	bool init();
 	void enable(Node * target);
 	CREATE_FUNC(MouseController);
 };

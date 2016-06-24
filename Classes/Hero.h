@@ -3,6 +3,7 @@
 #include "GameActor.h"
 #include "KeyboardController.h"
 #include "MouseController.h"
+#include "Weapon.h"
 
 using namespace cocos2d;
 
@@ -10,8 +11,9 @@ class Hero : public GameActor
 {
 public:
 	~Hero();
-	virtual bool init();
-	CREATE_FUNC(Hero);
+	bool init();
+	void pickUpWeapon(Weapon*);
+	CREATE_FUNC(Hero)
 
 private:
 	void initMouseController();
@@ -22,4 +24,5 @@ private:
 	KeyboardController * keyboardController;
 	MouseController * mouseController;
 	EventListenerMouse * mouseEventListener;
+	Weapon* weapon;
 };

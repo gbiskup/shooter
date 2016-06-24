@@ -1,6 +1,6 @@
 #include "ActionsController.h"
 
-bool ActionsController::isActionOn(const ActionType& actionType)
+bool ActionsController::isActionOn(const ActionType& actionType) const
 {
 	auto actionToCheck = actions.find(actionType);
 	if (actionToCheck != actions.end())

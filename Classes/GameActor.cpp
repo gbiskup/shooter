@@ -14,6 +14,11 @@ void GameActor::update(float delta)
 {
 	updateMovement();
 	applyMovement();
+	attack();
+}
+
+void GameActor::attack()
+{
 }
 
 void GameActor::updateMovement()

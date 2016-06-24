@@ -20,6 +20,7 @@ public:
 	CREATE_FUNC(GameActor);
 
 protected:
+	virtual void attack();
 	ActionsController actionsController;
 	Vec2 moveDirection;
 

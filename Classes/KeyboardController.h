@@ -9,12 +9,12 @@ class KeyboardController : private EventListenerKeyboard
 {
 public:
 	~KeyboardController();
-	virtual bool init();
+	bool init();
 	void registerKeyDownCallback(EventKeyboard::KeyCode, function<void()>);
 	void registerKeyUpCallback(EventKeyboard::KeyCode, function<void()>);
 	void enable(Node * target);
 	void disable();
-	CREATE_FUNC(KeyboardController);
+	CREATE_FUNC(KeyboardController)
 
 private:
 	void handleKeyPressed(EventKeyboard::KeyCode, Event*) const;

@@ -12,10 +12,10 @@ class GameplayScene : public Layer
 public:
 	~GameplayScene();
 	static Scene* createScene();
-	virtual bool init();
+	bool init();
 	void update(float) override;
 
-	CREATE_FUNC(GameplayScene);
+	CREATE_FUNC(GameplayScene)
 
 private:
 	void initKeyboardController();
