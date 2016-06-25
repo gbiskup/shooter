@@ -25,6 +25,7 @@ GameActor * ActorFactory::createHero()
 	//hero->setPhysicsBody(PhysicsBody::createCircle(30, PhysicsMaterial(0.0f, 1.0f, 0.0f)));
 	hero->setPhysicsBody(PhysicsBody::createBox(size, PhysicsMaterial(0.0f, 1.0f, 0.0f)));
 	hero->setPosition(Vec2(500, 500));
+	hero->takeWeapon(Weapon::create());
 	return static_cast<GameActor*>(hero);
 }
 

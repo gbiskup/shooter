@@ -6,46 +6,82 @@ bool GameActor::init()
 	{
 		return false;
 	}
+	initActionsController();
 	this->scheduleUpdate();
 	return true;
 }
 
-void GameActor::pickUpWeapon(Weapon * weaponToUse)
+void GameActor::initActionsController()
+{
+	actionsController.addActionState(ActionType::ATTACK);
+	actionsController.addActionState(ActionType::MOVE_DOWN);
+	actionsController.addActionState(ActionType::MOVE_LEFT);
+	actionsController.addActionState(ActionType::MOVE_RIGHT);
+	actionsController.addActionState(ActionType::MOVE_UP);
+}
+
+void GameActor::takeWeapon(Weapon * weaponToUse)
 {
 	weapon = weaponToUse;
+	addChild(weapon);
+}
+
+void GameActor::lookAt(const Vec2 & lookAtPoint)
+{
+	this->lookAtPoint = lookAtPoint;
 }
 
 void GameActor::update(float dt)
 {
 	updateMoveDirection();
 	applyVelocity();
+	updateAngle();
 	updateAttack(dt);
+	actionsController.clearDirtyFlags();
+}
+
+void GameActor::updateAngle()
+{
+	auto position = getPosition();
+	position.subtract(lookAtPoint);
+	setRotation(-CC_RADIANS_TO_DEGREES(position.getAngle()));
 }
 
 void GameActor::updateAttack(float dt)
 {
-	/*if (weapon != nullptractionsController.isActionOn(ActionType::ATTACK))
+	if (weapon != nullptr)
 	{
-		weapon->pullTrigger();
-	}*/
+		ActionState* attackAction = actionsController.getActionState(ActionType::ATTACK);
+		if (attackAction->didChange)
+		{
+			if (attackAction->isOn)
+			{
+				weapon->startFire();
+			}
+			else
+			{
+				weapon->stopFire();
+			}
+		}
+	}
 }
 
 void GameActor::updateMoveDirection()
 {
 	moveDirection.setZero();
-	if (actionsController.isActionOn(ActionType::MOVE_UP))
+	if (actionsController.isActionActive(ActionType::MOVE_UP))
 	{
 		moveDirection.y += moveSpeed;
 	}
-	if (actionsController.isActionOn(ActionType::MOVE_DOWN))
+	if (actionsController.isActionActive(ActionType::MOVE_DOWN))
 	{
 		moveDirection.y -= moveSpeed;
 	}
-	if (actionsController.isActionOn(ActionType::MOVE_LEFT))
+	if (actionsController.isActionActive(ActionType::MOVE_LEFT))
 	{
 		moveDirection.x -= moveSpeed;
 	}
-	if (actionsController.isActionOn(ActionType::MOVE_RIGHT))
+	if (actionsController.isActionActive(ActionType::MOVE_RIGHT))
 	{
 		moveDirection.x += moveSpeed;
 	}

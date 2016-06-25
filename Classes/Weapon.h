@@ -9,8 +9,11 @@ class Weapon : public Node
 public:
 	virtual bool init();
 	void update(float) override;
-	void fire(const Vec2&);
+	void startFire();
+	void stopFire();
 	CREATE_FUNC(Weapon)
 private:
-	float fireRate = 100;
+	bool isFiring = false;
+	float fireRate = 1.f;
+	float fireCooldown = 0;
 };

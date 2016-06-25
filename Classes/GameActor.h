@@ -18,7 +18,8 @@ class GameActor : public Node
 public:
 	virtual bool init();
 	void update(float) override;
-	void pickUpWeapon(Weapon*);
+	void takeWeapon(Weapon*);
+	void lookAt(const Vec2&);
 	ActionsController actionsController;
 	CREATE_FUNC(GameActor)
 
@@ -27,8 +28,10 @@ protected:
 	Vec2 lookAtPoint;
 	Weapon* weapon;
 private:
-	float moveSpeed = 300.f;
+	void initActionsController();
 	void updateMoveDirection();
 	void applyVelocity();
+	void updateAngle();
 	void updateAttack(float);
+	float moveSpeed = 300.f;
 };

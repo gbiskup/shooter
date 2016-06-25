@@ -12,7 +12,7 @@ public:
 	~MainMenuScene();
 	static Scene* createScene();
 	bool init();
-	CREATE_FUNC(MainMenuScene);
+	CREATE_FUNC(MainMenuScene)
 
 private:
 	Menu * menu;

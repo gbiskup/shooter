@@ -12,9 +12,22 @@ bool Weapon::init()
 
 void Weapon::update(float dt)
 {
+	if (isFiring)
+	{
+		log("Bang, bang");
+	}
+	fireCooldown -= dt;
 }
 
-void Weapon::fire(const Vec2 &)
+void Weapon::startFire()
 {
+	isFiring = true;
+	log("Ognia!!!");
+}
+
+void Weapon::stopFire()
+{
+	isFiring = false;
+	log("Wstrzymac ogien");
 }
 

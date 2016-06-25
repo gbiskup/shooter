@@ -19,8 +19,17 @@ public:
 
 private:
 	void initKeyboardController();
-	void initPlayer();
+	void initMouseController();
+	void mouseDownHandler(EventMouse*);
+	void mouseUpHandler(EventMouse*);
+	void mouseMoveHandler(EventMouse*);
+
+	void initHero();
 	void returnToMenu();
+
+	MouseController * mouseController;
+	EventListenerMouse * mouseEventListener;
+
 	KeyboardController* keyboardController;
 	PhysicsWorld* world;
 	Hero* hero;

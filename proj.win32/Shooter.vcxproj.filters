@@ -119,6 +119,9 @@
     <ClInclude Include="..\Classes\Weapon.h">
       <Filter>src\gameplay\actors\hero\weapon</Filter>
     </ClInclude>
+    <ClInclude Include="..\Classes\ActionState.h">
+      <Filter>src\gameplay\actors\actions</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="game.rc">

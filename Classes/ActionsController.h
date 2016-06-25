@@ -1,23 +1,22 @@
 #pragma once
-#include <map>
+#include <vector>
+#include <memory>
+#include "ActionState.h"
 
 using namespace std;
-
-enum class ActionType
-{
-	MOVE_LEFT,
-	MOVE_RIGHT,
-	MOVE_UP,
-	MOVE_DOWN,
-	ATTACK
-};
 
 class ActionsController
 {
 public:
-	bool isActionOn(const ActionType&) const;
+	ActionsController();
+	void clearDirtyFlags();
+	bool didActionChange(const ActionType&) const;
+	bool isActionActive(const ActionType&) const;
 	void startAction(const ActionType&);
 	void stopAction(const ActionType&);
+	const ActionState* getActionState(const ActionType&) const;
+	ActionState* getActionState(const ActionType&);
+	void addActionState(const ActionType&);
 private:
-	map <ActionType, int> actions;
+	vector <unique_ptr<ActionState>> actions;
 };

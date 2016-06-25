@@ -3,10 +3,12 @@
 #include "MainMenuScene.h"
 #include "GameActor.h"
 #include "ActorFactory.h"
+#include "ActionState.h"
 
 GameplayScene::~GameplayScene()
 {
 	log("Destroy gameplay");
+	getEventDispatcher()->removeEventListener(mouseEventListener);
 	keyboardController->disable();
 }
 
@@ -26,8 +28,9 @@ bool GameplayScene::init()
 	{
 		return false;
 	}
-	initPlayer();
+	initHero();
 	initKeyboardController();
+	initMouseController();
 	this->scheduleUpdate();
 	return true;
 }
@@ -37,11 +40,37 @@ void GameplayScene::update(float delta)
 	
 }
 
-void GameplayScene::initPlayer()
+void GameplayScene::initHero()
 {
 	ActorFactory factory;
 	hero = dynamic_cast<Hero*>(factory.createActorOfType(ActorType::HERO));
 	addChild(hero);
+}
+
+void GameplayScene::initMouseController()
+{
+	mouseEventListener = EventListenerMouse::create();
+	mouseEventListener->onMouseDown = CC_CALLBACK_1(GameplayScene::mouseDownHandler, this);
+	mouseEventListener->onMouseUp = CC_CALLBACK_1(GameplayScene::mouseUpHandler, this);
+	mouseEventListener->onMouseMove = CC_CALLBACK_1(GameplayScene::mouseMoveHandler, this);
+
+	getEventDispatcher()->addEventListenerWithFixedPriority(mouseEventListener, 1);
+}
+
+void GameplayScene::mouseDownHandler(EventMouse * eventMouse)
+{
+	hero->actionsController.startAction(ActionType::ATTACK);
+}
+
+void GameplayScene::mouseUpHandler(EventMouse * eventMouse)
+{
+	hero->actionsController.stopAction(ActionType::ATTACK);
+}
+
+void GameplayScene::mouseMoveHandler(EventMouse * eventMouse)
+{
+	auto mouseVector = eventMouse->getLocationInView();
+	hero->lookAt(mouseVector);
 }
 
 void GameplayScene::initKeyboardController()

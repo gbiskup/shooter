@@ -1,33 +1,65 @@
+#include <assert.h>
 #include "ActionsController.h"
 
-bool ActionsController::isActionOn(const ActionType& actionType) const
+ActionsController::ActionsController()
 {
-	auto actionToCheck = actions.find(actionType);
-	if (actionToCheck != actions.end())
+	actions.reserve(16);
+}
+
+void ActionsController::clearDirtyFlags()
+{
+	for (const auto& actionState : actions)
 	{
-		return actionToCheck->second > 0;
+		actionState->resetDirtyFlag();
 	}
-	return false;
+}
+
+bool ActionsController::didActionChange(const ActionType& actionType) const
+{
+	return getActionState(actionType)->getIsActive();
+}
+
+bool ActionsController::isActionActive(const ActionType& actionType) const
+{
+	return getActionState(actionType)->getIsActive();
 }
 
 void ActionsController::startAction(const ActionType& actionType)
 {
-	auto actionToStart = actions.find(actionType);
-	if (actionToStart == actions.end())
-	{
-		actions[actionType] = 1;
-	}
-	else
-	{
-		actionToStart->second = 1;
-	}
+	getActionState(actionType)->setIsActive(true);
 }
 
 void ActionsController::stopAction(const ActionType& actionType)
 {
-	auto actionToStop = actions.find(actionType);
-	if (actionToStop != actions.end())
+	getActionState(actionType)->setIsActive(false);
+}
+
+ActionState* ActionsController::getActionState(const ActionType& type)
+{
+	for (auto& actionState : actions)
 	{
-		actionToStop->second = 0;
+		if (actionState->getType() == type)
+		{
+			return actionState.get();
+		}
 	}
+	return nullptr;
+}
+
+const ActionState* ActionsController::getActionState(const ActionType& type) const
+{
+	for (const auto& actionState : actions)
+	{
+		if (actionState->getType() == type)
+		{
+			return actionState.get();
+		}
+	}
+	return nullptr;
+}
+
+void ActionsController::addActionState(const ActionType& type)
+{
+	assert(getActionState(type) == nullptr);
+	actions.push_back( make_unique<ActionState>( type ));
 }
