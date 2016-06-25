@@ -10,41 +10,50 @@ bool GameActor::init()
 	return true;
 }
 
-void GameActor::update(float delta)
+void GameActor::pickUpWeapon(Weapon * weaponToUse)
 {
-	updateMovement();
-	applyMovement();
-	attack();
+	weapon = weaponToUse;
 }
 
-void GameActor::attack()
+void GameActor::update(float dt)
 {
+	updateMoveDirection();
+	applyVelocity();
+	updateAttack(dt);
 }
 
-void GameActor::updateMovement()
+void GameActor::updateAttack(float dt)
+{
+	/*if (weapon != nullptractionsController.isActionOn(ActionType::ATTACK))
+	{
+		weapon->pullTrigger();
+	}*/
+}
+
+void GameActor::updateMoveDirection()
 {
 	moveDirection.setZero();
-	if (actionsController.isActionOn(ActionsController::ActionType::MOVE_UP))
+	if (actionsController.isActionOn(ActionType::MOVE_UP))
 	{
 		moveDirection.y += moveSpeed;
 	}
-	if (actionsController.isActionOn(ActionsController::ActionType::MOVE_DOWN))
+	if (actionsController.isActionOn(ActionType::MOVE_DOWN))
 	{
 		moveDirection.y -= moveSpeed;
 	}
-	if (actionsController.isActionOn(ActionsController::ActionType::MOVE_LEFT))
+	if (actionsController.isActionOn(ActionType::MOVE_LEFT))
 	{
 		moveDirection.x -= moveSpeed;
 	}
-	if (actionsController.isActionOn(ActionsController::ActionType::MOVE_RIGHT))
+	if (actionsController.isActionOn(ActionType::MOVE_RIGHT))
 	{
 		moveDirection.x += moveSpeed;
 	}
-	moveDirection.normalize();
-	moveDirection.scale(moveSpeed);
 }
 
-void GameActor::applyMovement()
+void GameActor::applyVelocity()
 {
+	moveDirection.normalize();
+	moveDirection.scale(moveSpeed);
 	getPhysicsBody()->setVelocity(moveDirection);
 }

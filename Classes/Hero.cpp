@@ -4,9 +4,7 @@
 Hero::~Hero()
 {
 	log("Hero destroyed");
-	keyboardController->disable();
 	getEventDispatcher()->removeEventListener(mouseEventListener);
-	//getEven
 }
 
 bool Hero::init()
@@ -16,13 +14,7 @@ bool Hero::init()
 		return false;
 	}
 	initMouseController();
-	initKeyboardController();
 	return true;
-}
-
-void Hero::pickUpWeapon(Weapon * weaponToUse)
-{
-	weapon = weaponToUse;
 }
 
 void Hero::initMouseController()
@@ -36,30 +28,14 @@ void Hero::initMouseController()
 	getEventDispatcher()->addEventListenerWithFixedPriority(mouseEventListener, 1);
 }
 
-void Hero::initKeyboardController()
-{
-	keyboardController = KeyboardController::create();
-	keyboardController->enable(this);
-
-	keyboardController->registerKeyDownCallback(EventKeyboard::KeyCode::KEY_W, CC_CALLBACK_0(ActionsController::startAction, &actionsController, ActionsController::ActionType::MOVE_UP));
-	keyboardController->registerKeyDownCallback(EventKeyboard::KeyCode::KEY_S, CC_CALLBACK_0(ActionsController::startAction, &actionsController, ActionsController::ActionType::MOVE_DOWN));
-	keyboardController->registerKeyDownCallback(EventKeyboard::KeyCode::KEY_A, CC_CALLBACK_0(ActionsController::startAction, &actionsController, ActionsController::ActionType::MOVE_LEFT));
-	keyboardController->registerKeyDownCallback(EventKeyboard::KeyCode::KEY_D, CC_CALLBACK_0(ActionsController::startAction, &actionsController, ActionsController::ActionType::MOVE_RIGHT));
-
-	keyboardController->registerKeyUpCallback(EventKeyboard::KeyCode::KEY_W, CC_CALLBACK_0(ActionsController::stopAction, &actionsController, ActionsController::ActionType::MOVE_UP));
-	keyboardController->registerKeyUpCallback(EventKeyboard::KeyCode::KEY_S, CC_CALLBACK_0(ActionsController::stopAction, &actionsController, ActionsController::ActionType::MOVE_DOWN));
-	keyboardController->registerKeyUpCallback(EventKeyboard::KeyCode::KEY_A, CC_CALLBACK_0(ActionsController::stopAction, &actionsController, ActionsController::ActionType::MOVE_LEFT));
-	keyboardController->registerKeyUpCallback(EventKeyboard::KeyCode::KEY_D, CC_CALLBACK_0(ActionsController::stopAction, &actionsController, ActionsController::ActionType::MOVE_RIGHT));
-}
-
 void Hero::mouseDownHandler(EventMouse * eventMouse)
 {
-	log("Mouse down");
+	actionsController.startAction( ActionType::ATTACK );
 }
 
 void Hero::mouseUpHandler(EventMouse * eventMouse)
 {
-	log("Mouse up");
+	actionsController.stopAction( ActionType::ATTACK );
 }
 
 void Hero::mouseMoveHandler(EventMouse * eventMouse)

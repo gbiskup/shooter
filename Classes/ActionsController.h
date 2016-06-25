@@ -3,18 +3,18 @@
 
 using namespace std;
 
+enum class ActionType
+{
+	MOVE_LEFT,
+	MOVE_RIGHT,
+	MOVE_UP,
+	MOVE_DOWN,
+	ATTACK
+};
+
 class ActionsController
 {
 public:
-	enum class ActionType
-	{
-		MOVE_LEFT,
-		MOVE_RIGHT,
-		MOVE_UP,
-		MOVE_DOWN,
-		ATTACK
-	};
-
 	bool isActionOn(const ActionType&) const;
 	void startAction(const ActionType&);
 	void stopAction(const ActionType&);
