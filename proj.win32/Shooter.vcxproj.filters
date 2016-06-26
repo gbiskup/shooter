@@ -43,10 +43,13 @@
     <Filter Include="src\inputController\mouse">
       <UniqueIdentifier>{810c0a98-6542-4e86-9cd2-7cb7857f36ca}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\gameplay\actors\hero\weapon">
+    <Filter Include="src\gameplay\collision">
+      <UniqueIdentifier>{c1a5262b-7375-4eba-8d07-d243c32d4000}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\gameplay\weapon">
       <UniqueIdentifier>{d9e151c5-d571-4d4c-8c3c-bab4414d5ae8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\gameplay\actors\hero\weapon\bullet">
+    <Filter Include="src\gameplay\weapon\bullet">
       <UniqueIdentifier>{5ee15ef1-32f5-42ff-adf4-2e87fa36f667}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -82,7 +85,13 @@
       <Filter>src\inputController\mouse</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\Weapon.cpp">
-      <Filter>src\gameplay\actors\hero\weapon</Filter>
+      <Filter>src\gameplay\weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\BulletFactory.cpp">
+      <Filter>src\gameplay\weapon\bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Bullet.cpp">
+      <Filter>src\gameplay\weapon\bullet</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -120,13 +129,19 @@
       <Filter>src\inputController\mouse</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\Weapon.h">
-      <Filter>src\gameplay\actors\hero\weapon</Filter>
+      <Filter>src\gameplay\weapon</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\ActionState.h">
       <Filter>src\gameplay\actors\actions</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\Bullet.h">
-      <Filter>src\gameplay\actors\hero\weapon\bullet</Filter>
+      <Filter>src\gameplay\weapon\bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\CollisionBitMasks.h">
+      <Filter>src\gameplay\collision</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\BulletFactory.h">
+      <Filter>src\gameplay\weapon\bullet</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

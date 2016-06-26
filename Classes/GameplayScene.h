@@ -20,9 +20,11 @@ public:
 private:
 	void initKeyboardController();
 	void initMouseController();
+	void addCollisionListener();
 	void mouseDownHandler(EventMouse*);
 	void mouseUpHandler(EventMouse*);
 	void mouseMoveHandler(EventMouse*);
+	bool onCollisionBegin(PhysicsContact&);
 
 	void initHero();
 	void returnToMenu();

@@ -13,11 +13,11 @@ bool GameActor::init()
 
 void GameActor::initActionsController()
 {
-	actionsController.addActionState(ActionType::ATTACK);
-	actionsController.addActionState(ActionType::MOVE_DOWN);
-	actionsController.addActionState(ActionType::MOVE_LEFT);
-	actionsController.addActionState(ActionType::MOVE_RIGHT);
-	actionsController.addActionState(ActionType::MOVE_UP);
+	actionsController.addActionState( ActionType::ATTACK );
+	actionsController.addActionState( ActionType::MOVE_DOWN );
+	actionsController.addActionState( ActionType::MOVE_LEFT );
+	actionsController.addActionState( ActionType::MOVE_RIGHT );
+	actionsController.addActionState( ActionType::MOVE_UP );
 }
 
 void GameActor::takeWeapon(Weapon * weaponToUse)
@@ -31,7 +31,19 @@ void GameActor::lookAt(const Vec2 & lookAtPoint)
 	this->lookAtPoint = lookAtPoint;
 }
 
-void GameActor::update(float dt)
+void GameActor::heal( int healthPoints )
+{
+	assert( healthPoints > 0 );
+	health += healthPoints;
+}
+
+void GameActor::doDamage( int damagePoints )
+{
+	assert( damagePoints > 0 );
+	health -= damagePoints;
+}
+
+void GameActor::update( float dt )
 {
 	updateMoveDirection();
 	applyVelocity();
@@ -44,14 +56,14 @@ void GameActor::updateAngle()
 {
 	auto position = getPosition();
 	position.subtract(lookAtPoint);
-	setRotation(-CC_RADIANS_TO_DEGREES(position.getAngle()));
+	setRotation( -CC_RADIANS_TO_DEGREES( position.getAngle() ));
 }
 
-void GameActor::updateAttack(float dt)
+void GameActor::updateAttack( float dt )
 {
 	if (weapon != nullptr)
 	{
-		ActionState* attackAction = actionsController.getActionState(ActionType::ATTACK);
+		ActionState* attackAction = actionsController.getActionState( ActionType::ATTACK );
 		if (attackAction->didChange)
 		{
 			if (attackAction->isOn)
@@ -69,19 +81,19 @@ void GameActor::updateAttack(float dt)
 void GameActor::updateMoveDirection()
 {
 	desiredVelocity.setZero();
-	if (actionsController.isActionActive(ActionType::MOVE_UP))
+	if (actionsController.isActionActive( ActionType::MOVE_UP ))
 	{
 		desiredVelocity.y += maxSpeed;
 	}
-	if (actionsController.isActionActive(ActionType::MOVE_DOWN))
+	if (actionsController.isActionActive( ActionType::MOVE_DOWN ))
 	{
 		desiredVelocity.y -= maxSpeed;
 	}
-	if (actionsController.isActionActive(ActionType::MOVE_LEFT))
+	if (actionsController.isActionActive( ActionType::MOVE_LEFT ))
 	{
 		desiredVelocity.x -= maxSpeed;
 	}
-	if (actionsController.isActionActive(ActionType::MOVE_RIGHT))
+	if (actionsController.isActionActive( ActionType::MOVE_RIGHT ))
 	{
 		desiredVelocity.x += maxSpeed;
 	}
@@ -90,11 +102,11 @@ void GameActor::updateMoveDirection()
 void GameActor::applyVelocity()
 {
 	desiredVelocity.normalize();
-	desiredVelocity.scale(maxSpeed);
+	desiredVelocity.scale( maxSpeed );
 	
 	auto body = getPhysicsBody();
 	auto currentVelocity = body->getVelocity();
-	auto dV = Vec2(desiredVelocity.x - currentVelocity.x, desiredVelocity.y - currentVelocity.y);
+	auto dV = Vec2( desiredVelocity.x - currentVelocity.x, desiredVelocity.y - currentVelocity.y );
 	
 	auto force = Vec2( body->getMass() * dV );
 	

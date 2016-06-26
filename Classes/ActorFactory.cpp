@@ -1,7 +1,8 @@
 #include "ActorFactory.h"
 #include "Hero.h"
+#include "CollisionBitMasks.h"
 
-GameActor * ActorFactory::createActorOfType(ActorType actorType)
+GameActor * ActorFactory::createActorOfType(const ActorType& actorType)
 {
 	GameActor * actor;
 	switch (actorType)
@@ -21,24 +22,23 @@ GameActor * ActorFactory::createActorOfType(ActorType actorType)
 GameActor * ActorFactory::createMonster()
 {
 	auto monster = GameActor::create();
-	size.width = 100;
-	size.height = 40;
-	monster->setPhysicsBody(PhysicsBody::createCircle(40, PhysicsMaterial(10.0f, 1.0f, 0.0f)));
-	//hero->setPhysicsBody(PhysicsBody::createBox(size, PhysicsMaterial(0.0f, 1.0f, 0.0f)));
-	monster->setPosition(Vec2(530, 200));
-	monster->takeWeapon(Weapon::create());
+	auto body = PhysicsBody::createCircle( 40, PhysicsMaterial( 1.0f, 1.0f, 0.0f ));
+	body->setCollisionBitmask( static_cast <int>( CollisionBitmasks::MONSTER ));
+	body->setContactTestBitmask( static_cast <int>( CollisionBitmasks::BULLET ) | static_cast<int>( CollisionBitmasks::HERO ));
+	monster->setPhysicsBody( body );
+	monster->setPosition( Vec2( 530, 200 ));
+	monster->takeWeapon( Weapon::create() );
 	return monster;
 }
 
 GameActor * ActorFactory::createHero()
 {
 	auto hero = Hero::create();
-	size.width = 100;
-	size.height = 40;
-	hero->setPhysicsBody(PhysicsBody::createCircle(30, PhysicsMaterial(0.0f, 1.0f, 0.0f)));
-	//hero->setPhysicsBody(PhysicsBody::createBox(size, PhysicsMaterial(0.0f, 1.0f, 0.0f)));
-	hero->setPosition(Vec2(500, 500));
-	hero->takeWeapon(Weapon::create());
-	return static_cast<GameActor*>(hero);
+	auto body = PhysicsBody::createCircle( 30, PhysicsMaterial( 1.0f, 1.0f, 0.0f ));
+	body->setCollisionBitmask( static_cast<int>( CollisionBitmasks::HERO ));
+	hero->setPhysicsBody( body );
+	hero->setPosition( Vec2( 500, 500 ));
+	hero->takeWeapon( Weapon::create() );
+	return static_cast<GameActor*>( hero );
 }
 

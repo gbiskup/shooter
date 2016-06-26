@@ -20,6 +20,8 @@ public:
 	void update(float) override;
 	void takeWeapon(Weapon*);
 	void lookAt(const Vec2&);
+	void heal(int);
+	void doDamage(int);
 	ActionsController actionsController;
 	CREATE_FUNC(GameActor)
 
@@ -27,6 +29,8 @@ protected:
 	Vec2 desiredVelocity;
 	Vec2 lookAtPoint;
 	Weapon* weapon;
+	int health;
+
 private:
 	void initActionsController();
 	void updateMoveDirection();

@@ -42,6 +42,7 @@ bool GameplayScene::init()
 	initHero();
 	initKeyboardController();
 	initMouseController();
+	addCollisionListener();
 	this->scheduleUpdate();
 	return true;
 }
@@ -68,7 +69,20 @@ void GameplayScene::initMouseController()
 	mouseEventListener->onMouseUp = CC_CALLBACK_1(GameplayScene::mouseUpHandler, this);
 	mouseEventListener->onMouseMove = CC_CALLBACK_1(GameplayScene::mouseMoveHandler, this);
 
-	getEventDispatcher()->addEventListenerWithFixedPriority(mouseEventListener, 1);
+	getEventDispatcher()->addEventListenerWithSceneGraphPriority(mouseEventListener, this);
+}
+
+void GameplayScene::addCollisionListener()
+{
+	auto contactListener = EventListenerPhysicsContact::create();
+	contactListener->onContactBegin = CC_CALLBACK_1(GameplayScene::onCollisionBegin, this);
+	getEventDispatcher()->addEventListenerWithFixedPriority(contactListener, 1);
+}
+
+bool GameplayScene::onCollisionBegin(PhysicsContact& contact)
+{
+	log("Contact");
+	return true;
 }
 
 void GameplayScene::mouseDownHandler(EventMouse * eventMouse)
