@@ -19,7 +19,6 @@ Scene* GameplayScene::createScene()
 	scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
 	scene->getPhysicsWorld()->setGravity(Vec2::ZERO);
 	
-	auto origin = Director::getInstance()->getVisibleOrigin();
 	auto visibleSize = Director::getInstance()->getVisibleSize();
 
 	auto edgeBody = PhysicsBody::createEdgeBox(visibleSize, PHYSICSBODY_MATERIAL_DEFAULT, 30);
@@ -46,7 +45,7 @@ bool GameplayScene::init()
 	initHero();
 	initKeyboardController();
 	initMouseController();
-	addCollisionListener();
+	initCollisionController();
 	this->scheduleUpdate();
 	return true;
 }
@@ -58,11 +57,12 @@ void GameplayScene::update(float delta)
 
 void GameplayScene::initHero()
 {
-	ActorFactory factory;
-	hero = dynamic_cast<Hero*>(factory.createActorOfType(ActorType::HERO));
+	auto visibleSize = Director::getInstance()->getVisibleSize();
+
+	hero = dynamic_cast<Hero*>(actorFactory.createActorOfType( ActorType::HERO, Point( visibleSize.width/2, visibleSize.height/2 )));
 	addChild(hero);
 
-	auto monster = factory.createActorOfType(ActorType::MONSTER);
+	auto monster = actorFactory.createActorOfType( ActorType::MONSTER, Point( visibleSize.width/4, visibleSize.height/2 ));
 	addChild(monster);
 }
 
@@ -76,7 +76,7 @@ void GameplayScene::initMouseController()
 	getEventDispatcher()->addEventListenerWithSceneGraphPriority(mouseEventListener, this);
 }
 
-void GameplayScene::addCollisionListener()
+void GameplayScene::initCollisionController()
 {
 	auto contactListener = EventListenerPhysicsContact::create();
 	contactListener->onContactBegin = CC_CALLBACK_1(CollisionController::onCollisionBegin, &collisionController);

@@ -2,7 +2,7 @@
 #include "Hero.h"
 #include "CollisionBitMasks.h"
 
-GameActor * ActorFactory::createActorOfType(const ActorType& actorType)
+GameActor * ActorFactory::createActorOfType(const ActorType& actorType, const Vec2& spawnPosition)
 {
 	GameActor * actor;
 	switch (actorType)
@@ -16,6 +16,7 @@ GameActor * ActorFactory::createActorOfType(const ActorType& actorType)
 			actor = createMonster();
 			break;
 	}
+	actor->setPosition(spawnPosition);
 	return actor;
 }
 
@@ -27,7 +28,6 @@ GameActor * ActorFactory::createMonster()
 	body->setCollisionBitmask( static_cast <int>( CollisionBitmasks::BULLET ) | static_cast <int>(CollisionBitmasks::HERO ));
 	body->setContactTestBitmask( static_cast <int>( CollisionBitmasks::BULLET ) | static_cast<int>(CollisionBitmasks::HERO ));
 	monster->setPhysicsBody( body );
-	monster->setPosition( Vec2( 530, 200 ));
 	monster->takeWeapon( Weapon::create() );
 	monster->heal( 100 );
 	return monster;
@@ -41,7 +41,6 @@ GameActor * ActorFactory::createHero()
 	body->setCollisionBitmask( static_cast<int>( CollisionBitmasks::MONSTER ) | static_cast<int>( CollisionBitmasks::WORLD_BOUNDS ));
 	body->setContactTestBitmask( static_cast<int>( CollisionBitmasks::MONSTER ));
 	hero->setPhysicsBody( body );
-	hero->setPosition( Vec2( 500, 500 ));
 	hero->takeWeapon( Weapon::create() );
 	hero->heal(100);
 	return static_cast<GameActor*>( hero );

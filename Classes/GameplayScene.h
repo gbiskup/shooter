@@ -3,6 +3,7 @@
 #include "cocos2d.h"
 #include "KeyboardController.h"
 #include "CollisionController.h"
+#include "ActorFactory.h"
 #include "Hero.h"
 
 using namespace cocos2d;
@@ -21,14 +22,15 @@ public:
 private:
 	void initKeyboardController();
 	void initMouseController();
-	void addCollisionListener();
+	void initCollisionController();
 	void mouseDownHandler(EventMouse*);
 	void mouseUpHandler(EventMouse*);
 	void mouseMoveHandler(EventMouse*);
-	bool onCollisionBegin(PhysicsContact&);
 
 	void initHero();
 	void returnToMenu();
+	
+	ActorFactory actorFactory;
 
 	EventListenerMouse * mouseEventListener;
 	KeyboardController* keyboardController;

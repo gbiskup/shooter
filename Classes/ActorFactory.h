@@ -9,7 +9,7 @@ using namespace std;
 class ActorFactory
 {
 public:
-	GameActor * createActorOfType(const ActorType&);
+	GameActor * createActorOfType(const ActorType&, const Vec2&);
 
 private:
 	GameActor * createHero();
