@@ -17,7 +17,8 @@ public:
 private:
 	void resetCooldown();
 	void reduceCooldown(float);
+	void spawnBullet();
 	bool isFiring = false;
-	float fireRate = 1.f;
+	float fireRate = 0.05f;
 	float fireCooldown = 0;
 };

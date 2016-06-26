@@ -14,4 +14,5 @@ public:
 	Size size;
 private:
 	GameActor * createHero();
+	GameActor * createMonster();
 };

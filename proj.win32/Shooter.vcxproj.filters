@@ -46,6 +46,9 @@
     <Filter Include="src\gameplay\actors\hero\weapon">
       <UniqueIdentifier>{d9e151c5-d571-4d4c-8c3c-bab4414d5ae8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\gameplay\actors\hero\weapon\bullet">
+      <UniqueIdentifier>{5ee15ef1-32f5-42ff-adf4-2e87fa36f667}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -121,6 +124,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\ActionState.h">
       <Filter>src\gameplay\actors\actions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Bullet.h">
+      <Filter>src\gameplay\actors\hero\weapon\bullet</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

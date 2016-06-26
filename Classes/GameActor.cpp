@@ -68,28 +68,44 @@ void GameActor::updateAttack(float dt)
 
 void GameActor::updateMoveDirection()
 {
-	moveDirection.setZero();
+	desiredVelocity.setZero();
 	if (actionsController.isActionActive(ActionType::MOVE_UP))
 	{
-		moveDirection.y += moveSpeed;
+		desiredVelocity.y += maxSpeed;
 	}
 	if (actionsController.isActionActive(ActionType::MOVE_DOWN))
 	{
-		moveDirection.y -= moveSpeed;
+		desiredVelocity.y -= maxSpeed;
 	}
 	if (actionsController.isActionActive(ActionType::MOVE_LEFT))
 	{
-		moveDirection.x -= moveSpeed;
+		desiredVelocity.x -= maxSpeed;
 	}
 	if (actionsController.isActionActive(ActionType::MOVE_RIGHT))
 	{
-		moveDirection.x += moveSpeed;
+		desiredVelocity.x += maxSpeed;
 	}
 }
 
 void GameActor::applyVelocity()
 {
-	moveDirection.normalize();
-	moveDirection.scale(moveSpeed);
-	getPhysicsBody()->setVelocity(moveDirection);
+	desiredVelocity.normalize();
+	desiredVelocity.scale(maxSpeed);
+	
+	auto body = getPhysicsBody();
+	auto currentVelocity = body->getVelocity();
+	auto dV = Vec2(desiredVelocity.x - currentVelocity.x, desiredVelocity.y - currentVelocity.y);
+	
+	auto force = Vec2( body->getMass() * dV );
+	
+
+	//desiredVelocity.y *= body->getMass();*/
+
+	//getPhysicsBody()->setVelocity(moveDirection);
+
+	//body->applyForce(force);
+
+	//getPhysicsBody()->applyImpulse(force);
+
+	getPhysicsBody()->setVelocity(desiredVelocity);
 }

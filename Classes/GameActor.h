@@ -24,7 +24,7 @@ public:
 	CREATE_FUNC(GameActor)
 
 protected:
-	Vec2 moveDirection;
+	Vec2 desiredVelocity;
 	Vec2 lookAtPoint;
 	Weapon* weapon;
 private:
@@ -33,5 +33,5 @@ private:
 	void applyVelocity();
 	void updateAngle();
 	void updateAttack(float);
-	float moveSpeed = 300.f;
+	float maxSpeed = 300.f;
 };

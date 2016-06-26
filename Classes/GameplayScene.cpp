@@ -17,6 +17,17 @@ Scene* GameplayScene::createScene()
 	auto scene = Scene::createWithPhysics();
 	scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
 	scene->getPhysicsWorld()->setGravity(Vec2::ZERO);
+	
+	auto origin = Director::getInstance()->getVisibleOrigin();
+	auto visibleSize = Director::getInstance()->getVisibleSize();
+
+	auto edgeBody = PhysicsBody::createEdgeBox(visibleSize, PHYSICSBODY_MATERIAL_DEFAULT, 30);
+	auto edgeNode = Node::create();
+	edgeNode->setPosition(Point(visibleSize.width / 2, visibleSize.height / 2));
+	edgeNode->setPhysicsBody(edgeBody);
+	scene->addChild(edgeNode);
+
+
 	auto layer = GameplayScene::create();
 	scene->addChild(layer);
 	return scene;
@@ -45,6 +56,9 @@ void GameplayScene::initHero()
 	ActorFactory factory;
 	hero = dynamic_cast<Hero*>(factory.createActorOfType(ActorType::HERO));
 	addChild(hero);
+
+	auto monster = factory.createActorOfType(ActorType::MONSTER);
+	addChild(monster);
 }
 
 void GameplayScene::initMouseController()
