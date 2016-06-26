@@ -24,7 +24,7 @@ private:
 	void spawnBullet();
 	Vec2 getBulletSpawnOffset();
 	bool isFiring = false;
-	float fireRate = 0.05f;
+	float fireRate = 0.25f;
 	float fireCooldown = 0;
 	BulletType bulletType;
 	BulletFactory bulletFactory;

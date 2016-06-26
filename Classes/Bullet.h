@@ -12,8 +12,9 @@ enum class BulletType
 class Bullet : public Node
 {
 public:
+	~Bullet() { log("Bullet destroyed"); };
 	void setDamage(int damage) { this->damage = damage; };
-	int getDamage() { return damage; };
+	int getDamage() const { return damage; };
 	CREATE_FUNC(Bullet)
 
 private:

@@ -28,8 +28,9 @@ Bullet * BulletFactory::createBullet(const Vec2& position)
 {
 	auto bullet = Bullet::create();
 	auto body = PhysicsBody::createCircle( 5, PhysicsMaterial( 0.0f, 1.0f, 0.0f ));
-	body->setCollisionBitmask( static_cast <int>( CollisionBitmasks::BULLET ));
-	body->setContactTestBitmask( static_cast <int>(CollisionBitmasks::MONSTER) | static_cast<int>( CollisionBitmasks::WORLD_BOUNDS ));
+	body->setCategoryBitmask( static_cast<int>(CollisionBitmasks::BULLET));
+	body->setCollisionBitmask( static_cast<int>(CollisionBitmasks::MONSTER) | static_cast<int>(CollisionBitmasks::WORLD_BOUNDS));
+	body->setContactTestBitmask( static_cast <int>( CollisionBitmasks::MONSTER ) | static_cast<int>( CollisionBitmasks::WORLD_BOUNDS ));
 	bullet->setPhysicsBody(body);
 	bullet->setPosition( position );
 	return bullet;

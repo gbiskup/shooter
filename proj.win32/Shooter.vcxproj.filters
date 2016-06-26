@@ -90,8 +90,8 @@
     <ClCompile Include="..\Classes\BulletFactory.cpp">
       <Filter>src\gameplay\weapon\bullet</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\Bullet.cpp">
-      <Filter>src\gameplay\weapon\bullet</Filter>
+    <ClCompile Include="..\Classes\CollisionController.cpp">
+      <Filter>src\gameplay\collision</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -142,6 +142,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\BulletFactory.h">
       <Filter>src\gameplay\weapon\bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\CollisionController.h">
+      <Filter>src\gameplay\collision</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

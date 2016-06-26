@@ -2,6 +2,7 @@
 #include <string>
 #include "cocos2d.h"
 #include "KeyboardController.h"
+#include "CollisionController.h"
 #include "Hero.h"
 
 using namespace cocos2d;
@@ -29,10 +30,10 @@ private:
 	void initHero();
 	void returnToMenu();
 
-	MouseController * mouseController;
 	EventListenerMouse * mouseEventListener;
-
 	KeyboardController* keyboardController;
+	CollisionController collisionController;
+
 	PhysicsWorld* world;
 	Hero* hero;
 };

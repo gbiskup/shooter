@@ -4,6 +4,7 @@
 #include "GameActor.h"
 #include "ActorFactory.h"
 #include "ActionState.h"
+#include "CollisionBitMasks.h"
 
 GameplayScene::~GameplayScene()
 {
@@ -22,11 +23,14 @@ Scene* GameplayScene::createScene()
 	auto visibleSize = Director::getInstance()->getVisibleSize();
 
 	auto edgeBody = PhysicsBody::createEdgeBox(visibleSize, PHYSICSBODY_MATERIAL_DEFAULT, 30);
+	edgeBody->setDynamic(false);
+	edgeBody->setCategoryBitmask(static_cast<int>(CollisionBitmasks::WORLD_BOUNDS));
+	edgeBody->setCollisionBitmask(static_cast<int>(CollisionBitmasks::BULLET) | static_cast<int>(CollisionBitmasks::HERO));
+	edgeBody->setContactTestBitmask(static_cast<int>( CollisionBitmasks::BULLET ));
 	auto edgeNode = Node::create();
 	edgeNode->setPosition(Point(visibleSize.width / 2, visibleSize.height / 2));
 	edgeNode->setPhysicsBody(edgeBody);
 	scene->addChild(edgeNode);
-
 
 	auto layer = GameplayScene::create();
 	scene->addChild(layer);
@@ -75,14 +79,8 @@ void GameplayScene::initMouseController()
 void GameplayScene::addCollisionListener()
 {
 	auto contactListener = EventListenerPhysicsContact::create();
-	contactListener->onContactBegin = CC_CALLBACK_1(GameplayScene::onCollisionBegin, this);
-	getEventDispatcher()->addEventListenerWithFixedPriority(contactListener, 1);
-}
-
-bool GameplayScene::onCollisionBegin(PhysicsContact& contact)
-{
-	log("Contact");
-	return true;
+	contactListener->onContactBegin = CC_CALLBACK_1(CollisionController::onCollisionBegin, &collisionController);
+	getEventDispatcher()->addEventListenerWithSceneGraphPriority(contactListener, this);
 }
 
 void GameplayScene::mouseDownHandler(EventMouse * eventMouse)

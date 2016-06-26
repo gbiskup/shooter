@@ -147,8 +147,8 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\ActionsController.cpp" />
     <ClCompile Include="..\Classes\ActorFactory.cpp" />
     <ClCompile Include="..\Classes\AppDelegate.cpp" />
-    <ClCompile Include="..\Classes\Bullet.cpp" />
     <ClCompile Include="..\Classes\BulletFactory.cpp" />
+    <ClCompile Include="..\Classes\CollisionController.cpp" />
     <ClCompile Include="..\Classes\GameActor.cpp" />
     <ClCompile Include="..\Classes\GameplayScene.cpp" />
     <ClCompile Include="..\Classes\Hero.cpp" />
@@ -167,6 +167,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\Bullet.h" />
     <ClInclude Include="..\Classes\BulletFactory.h" />
     <ClInclude Include="..\Classes\CollisionBitMasks.h" />
+    <ClInclude Include="..\Classes\CollisionController.h" />
     <ClInclude Include="..\Classes\GameActor.h" />
     <ClInclude Include="..\Classes\GameplayScene.h" />
     <ClInclude Include="..\Classes\Hero.h" />

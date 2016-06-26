@@ -41,6 +41,11 @@ void GameActor::doDamage( int damagePoints )
 {
 	assert( damagePoints > 0 );
 	health -= damagePoints;
+	log("Received damage, remaining hp: %d", health);
+	if (health <= 0)
+	{
+		log("Actor is dead");
+	}
 }
 
 void GameActor::update( float dt )
