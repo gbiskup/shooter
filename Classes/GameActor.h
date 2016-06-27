@@ -24,6 +24,7 @@ public:
 	void heal(int);
 	void takeDamage(int);
 	void setMaxSpeed(float maxSpeed) { this->maxSpeed = maxSpeed; };
+	int getHealth() const { return health; };
 	bool isDead() const { return dead; };
 	const ActorType& getType() const { return type; };
 	ActionsController actionsController;

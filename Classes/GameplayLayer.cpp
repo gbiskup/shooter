@@ -1,3 +1,5 @@
+#include <string>
+#include "AssetConstants.h"
 #include "GameplayLayer.h"
 #include "MainMenuLayer.h"
 #include "GameActor.h"
@@ -21,7 +23,7 @@ Scene* GameplayLayer::createScene()
 
 void GameplayLayer::initWorld( Scene* scene )
 {
-	scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
+	//scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
 	scene->getPhysicsWorld()->setGravity(Vec2::ZERO);
 
 	auto visibleSize = Director::getInstance()->getVisibleSize();
@@ -46,6 +48,7 @@ bool GameplayLayer::init()
 	{
 		return false;
 	}
+	initHealtLabel();
 	initHero();
 	initKeyboardController();
 	initMouseController();
@@ -61,11 +64,7 @@ void GameplayLayer::update(float delta)
 		unscheduleUpdate();
 		showGameOver();
 	}
-}
-
-void GameplayLayer::showGameOver()
-{
-
+	updateHealthLabel();
 }
 
 void GameplayLayer::initHero()
@@ -131,6 +130,38 @@ void GameplayLayer::initKeyboardController()
 	keyboardController->registerKeyUpCallback(EventKeyboard::KeyCode::KEY_D, CC_CALLBACK_0(ActionsController::stopAction, actionController, ActorActionType::MOVE_RIGHT));
 
 	keyboardController->enable(this);
+}
+
+void GameplayLayer::initHealtLabel()
+{
+	healthLabel = Label::createWithTTF("", FontPaths::MENU_FONT_PATH, 24);
+	healthLabel->setAnchorPoint(Vec2(1.0, 1.0));
+	auto visibleSize = Director::getInstance()->getVisibleSize();
+	healthLabel->setPosition(Vec2(visibleSize.width, visibleSize.height));
+	addChild(healthLabel);
+}
+
+void GameplayLayer::updateHealthLabel()
+{
+	if (lastShownHealth != hero->getHealth())
+	{
+		lastShownHealth = hero->getHealth();
+		string labelText = "Health: " + std::to_string(lastShownHealth);
+		healthLabel->setString(labelText);
+	}
+}
+
+Vec2 GameplayLayer::getScreenCenter()
+{
+	auto visibleSize = Director::getInstance()->getVisibleSize();
+	return Vec2(visibleSize.width / 2, visibleSize.height / 2);
+}
+
+void GameplayLayer::showGameOver()
+{
+	auto gameOverLabel = Label::createWithTTF("The hero is dead. Esc - get back to menu.", FontPaths::MENU_FONT_PATH, 24);
+	gameOverLabel->setPosition(getScreenCenter());
+	addChild(gameOverLabel);
 }
 
 void GameplayLayer::returnToMenu()

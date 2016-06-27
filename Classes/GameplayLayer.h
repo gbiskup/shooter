@@ -29,13 +29,16 @@ private:
 	void initHero();
 	void returnToMenu();
 	void showGameOver();
-	
-	ActorFactory actorFactory;
+	void initHealtLabel();
+	void updateHealthLabel();
+	Vec2 getScreenCenter();
 
+	ActorFactory actorFactory;
 	EventListenerMouse * mouseEventListener;
 	KeyboardController* keyboardController;
 	CollisionController collisionController;
-
 	PhysicsWorld* world;
 	Hero* hero;
+	Label* healthLabel;
+	int lastShownHealth = 0;
 };
