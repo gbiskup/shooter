@@ -5,10 +5,10 @@
 class Monster : public GameActor
 {
 public:
+	Monster(const ActorType& actorType) : GameActor::GameActor(actorType) {};
 	bool init();
 	void update(float) override;
 	void attackTarget( const GameActor* );
-	CREATE_FUNC(Monster)
 private:
-	const GameActor* target;
+	const GameActor* target = nullptr;
 };

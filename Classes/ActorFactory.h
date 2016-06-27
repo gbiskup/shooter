@@ -11,6 +11,7 @@ using namespace std;
 class ActorFactory
 {
 public:
+	template <class T> static T* createActor( const ActorType& );
 	GameActor * createActorOfType(const ActorType&, const Vec2&);
 	Hero * createHero(const Vec2&);
 	Monster * createMonster(const Vec2&);

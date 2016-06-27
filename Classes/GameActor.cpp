@@ -1,4 +1,5 @@
 #include "GameActor.h"
+#include "CollisionBitMasks.h"
 
 bool GameActor::init()
 {
@@ -44,8 +45,16 @@ void GameActor::doDamage( int damagePoints )
 	log("Received damage, remaining hp: %d", health);
 	if (health <= 0)
 	{
-		log("Actor is dead");
+		die();
 	}
+}
+
+void GameActor::die()
+{
+	dead = true;
+	unscheduleUpdate();
+	getPhysicsBody()->setCategoryBitmask(static_cast<int>(CollisionBitmasks::DEAD_BODY));
+	removeFromParent();
 }
 
 void GameActor::update( float dt )
@@ -113,7 +122,7 @@ void GameActor::applyVelocity()
 	auto currentVelocity = body->getVelocity();
 	auto dV = Vec2( desiredVelocity.x - currentVelocity.x, desiredVelocity.y - currentVelocity.y );
 
-	if (lockMovementAtLookPoint)
+	if (lockMoveDirectionAtLookPoint)
 	{
 		desiredVelocity = desiredVelocity.rotateByAngle(Vec2::ZERO, -CC_DEGREES_TO_RADIANS(getRotation() - 90));
 	}

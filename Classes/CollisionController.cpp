@@ -63,7 +63,8 @@ bool CollisionController::handleActorCollision(PhysicsBody * bodyA, PhysicsBody 
 	{
 		if (bodiesAreInContact)
 		{
-			log("Monster Attacks!!!");
+			//if (actorA->)
+			//actorA->melleeAttack()
 		}
 		else
 		{

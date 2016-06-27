@@ -21,6 +21,6 @@ void Monster::update(float dt)
 void Monster::attackTarget(const GameActor * target)
 {
 	this->target = target;
-	lockMovementAtLookPoint = true;
+	lockMoveDirectionAtLookPoint = true;
 	actionsController.startAction(ActorActionType::MOVE_UP);
 }

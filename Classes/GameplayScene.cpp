@@ -62,7 +62,7 @@ void GameplayScene::initHero()
 	hero = dynamic_cast<Hero*>(actorFactory.createActorOfType( ActorType::HERO, Point( visibleSize.width/2, visibleSize.height/2 )));
 	addChild(hero);
 
-	auto monster = actorFactory.createMonster( Point( visibleSize.width/4, visibleSize.height/2 ));
+	auto monster = actorFactory.createMonster( Point( -visibleSize.width/4, visibleSize.height/3 ));
 	addChild(monster);
 	monster->attackTarget( hero );
 }
@@ -81,6 +81,7 @@ void GameplayScene::initCollisionController()
 {
 	auto contactListener = EventListenerPhysicsContact::create();
 	contactListener->onContactBegin = CC_CALLBACK_1(CollisionController::onCollisionBegin, &collisionController);
+	contactListener->onContactSeparate = CC_CALLBACK_1(CollisionController::onCollisionEnded, &collisionController);
 	getEventDispatcher()->addEventListenerWithSceneGraphPriority(contactListener, this);
 }
 

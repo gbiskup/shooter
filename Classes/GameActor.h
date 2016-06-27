@@ -16,27 +16,32 @@ enum class ActorType
 class GameActor : public Node
 {
 public:
+	GameActor(const ActorType& actorType) : type(actorType) {};
 	virtual bool init();
 	void update(float) override;
 	void takeWeapon(Weapon*);
 	void lookAt(const Vec2&);
 	void heal(int);
 	void doDamage(int);
+	void setMaxSpeed(float maxSpeed) { this->maxSpeed = maxSpeed; };
+	bool isDead() { return dead; };
 	ActionsController actionsController;
-	CREATE_FUNC(GameActor)
 
 protected:
+	void die();
 	Vec2 desiredVelocity;
 	Vec2 lookAtPoint;
-	Weapon* weapon;
-	int health;
-	bool lockMovementAtLookPoint;
+	Weapon* weapon = nullptr;
+	float maxSpeed = 300.f;
+	int health = 0;
+	bool dead = false;
+	bool lockMoveDirectionAtLookPoint = false;
 
 private:
+	const ActorType type;
 	void initActionsController();
 	void updateMoveDirection();
 	void applyVelocity();
 	void updateAngle();
 	void updateAttack(float);
-	float maxSpeed = 300.f;
 };
