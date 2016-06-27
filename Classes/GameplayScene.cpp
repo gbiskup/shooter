@@ -64,7 +64,7 @@ void GameplayScene::initHero()
 
 	auto monster = actorFactory.createMonster( Point( -visibleSize.width/4, visibleSize.height/3 ));
 	addChild(monster);
-	monster->attackTarget( hero );
+	monster->followTarget( hero );
 }
 
 void GameplayScene::initMouseController()

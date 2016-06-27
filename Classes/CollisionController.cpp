@@ -52,7 +52,7 @@ bool CollisionController::handleBulletCollision(PhysicsBody *bodyA, PhysicsBody 
 
 void CollisionController::damageActorWithBullet(const Bullet * bullet, GameActor* actor)
 {
-	actor->doDamage(bullet->getDamage());
+	actor->takeDamage(bullet->getDamage());
 }
 
 bool CollisionController::handleActorCollision(PhysicsBody * bodyA, PhysicsBody * bodyB, bool bodiesAreInContact)
@@ -63,13 +63,38 @@ bool CollisionController::handleActorCollision(PhysicsBody * bodyA, PhysicsBody 
 	{
 		if (bodiesAreInContact)
 		{
-			//if (actorA->)
-			//actorA->melleeAttack()
+			if (!handleMelleeAttackStart(actorA, actorB))
+			{
+				handleMelleeAttackStart(actorB, actorA);
+			}
 		}
 		else
 		{
-			log("Monster stops Attack!!!");
+			if (!handleMelleeAttackStop(actorA, actorB))
+			{
+				handleMelleeAttackStop(actorB, actorA);
+			}
 		}
+		return true;
+	}
+	return false;
+}
+
+bool CollisionController::handleMelleeAttackStart(GameActor * actorA, GameActor * actorB)
+{
+	if (actorA->getType() == ActorType::MONSTER && actorB->getType() == ActorType::HERO)
+	{
+		actorA->actionsController.startAction(ActorActionType::ATTACK);
+		return true;
+	}
+	return false;
+}
+
+bool CollisionController::handleMelleeAttackStop(GameActor * actorA, GameActor * actorB)
+{
+	if (actorA->getType() == ActorType::MONSTER && actorB->getType() == ActorType::HERO)
+	{
+		actorA->actionsController.stopAction(ActorActionType::ATTACK);
 		return true;
 	}
 	return false;

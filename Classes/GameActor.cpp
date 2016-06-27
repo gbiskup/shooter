@@ -19,12 +19,20 @@ void GameActor::initActionsController()
 	actionsController.addActionState( ActorActionType::MOVE_LEFT );
 	actionsController.addActionState( ActorActionType::MOVE_RIGHT );
 	actionsController.addActionState( ActorActionType::MOVE_UP );
+	actionsController.addActionState( ActorActionType::IDLE );
 }
 
-void GameActor::takeWeapon(Weapon * weaponToUse)
+void GameActor::takeWeapon(AbstractWeapon * weaponToUse)
 {
+	if (weapon != nullptr)
+	{
+		stopAttack();
+	}
 	weapon = weaponToUse;
-	addChild(weapon);
+	if (weapon != nullptr)
+	{
+		addChild(weapon);
+	}
 }
 
 void GameActor::lookAt(const Vec2 & lookAtPoint)
@@ -38,7 +46,7 @@ void GameActor::heal( int healthPoints )
 	health += healthPoints;
 }
 
-void GameActor::doDamage( int damagePoints )
+void GameActor::takeDamage( int damagePoints )
 {
 	assert( damagePoints > 0 );
 	health -= damagePoints;
@@ -52,18 +60,28 @@ void GameActor::doDamage( int damagePoints )
 void GameActor::die()
 {
 	dead = true;
-	unscheduleUpdate();
+	stayIdle();
 	getPhysicsBody()->setCategoryBitmask(static_cast<int>(CollisionBitmasks::DEAD_BODY));
-	removeFromParent();
+	getPhysicsBody()->setCollisionBitmask(static_cast<int>(CollisionBitmasks::NONE));
+}
+
+void GameActor::stayIdle()
+{
+	actionsController.startAction(ActorActionType::IDLE);
+	unscheduleUpdate();
+	getPhysicsBody()->setVelocity(Vec2::ZERO);
 }
 
 void GameActor::update( float dt )
 {
 	desiredVelocity.setZero();
-	updateMoveDirection();
-	applyVelocity();
-	updateAngle();
-	updateAttack(dt);
+	if (!actionsController.isActionActive(ActorActionType::IDLE))
+	{
+		updateMoveDirection();
+		applyVelocity();
+		updateAngle();
+		updateAttack(dt);
+	}
 	actionsController.clearDirtyFlags();
 }
 
@@ -72,6 +90,16 @@ void GameActor::updateAngle()
 	auto position = getPosition();
 	position.subtract(lookAtPoint);
 	setRotation( -CC_RADIANS_TO_DEGREES( position.getAngle() ));
+}
+
+void GameActor::startAttack()
+{
+	weapon->startAttack();
+}
+
+void GameActor::stopAttack()
+{
+	weapon->stopAttack();
 }
 
 void GameActor::updateAttack( float dt )
@@ -83,11 +111,11 @@ void GameActor::updateAttack( float dt )
 		{
 			if (attackAction->isOn)
 			{
-				weapon->startFire();
+				startAttack();
 			}
 			else
 			{
-				weapon->stopFire();
+				stopAttack();
 			}
 		}
 	}

@@ -2,7 +2,7 @@
 
 #include "cocos2d.h"
 #include "ActionsController.h"
-#include "Weapon.h"
+#include "AbstractWeapon.h"
 
 using namespace cocos2d;
 using namespace std;
@@ -19,19 +19,23 @@ public:
 	GameActor(const ActorType& actorType) : type(actorType) {};
 	virtual bool init();
 	void update(float) override;
-	void takeWeapon(Weapon*);
+	virtual void takeWeapon(AbstractWeapon*);
 	void lookAt(const Vec2&);
 	void heal(int);
-	void doDamage(int);
+	void takeDamage(int);
 	void setMaxSpeed(float maxSpeed) { this->maxSpeed = maxSpeed; };
-	bool isDead() { return dead; };
+	bool isDead() const { return dead; };
+	const ActorType& getType() const { return type; };
 	ActionsController actionsController;
 
 protected:
-	void die();
+	virtual void startAttack();
+	virtual void stopAttack();
+	virtual void die();
+	void stayIdle();
 	Vec2 desiredVelocity;
 	Vec2 lookAtPoint;
-	Weapon* weapon = nullptr;
+	AbstractWeapon* weapon = nullptr;
 	float maxSpeed = 300.f;
 	int health = 0;
 	bool dead = false;

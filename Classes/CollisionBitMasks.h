@@ -2,6 +2,7 @@
 
 enum class CollisionBitmasks
 {
+	NONE = 0,
 	HERO = 1,
 	MONSTER = 1 << 1,
 	BULLET = 1 << 2,

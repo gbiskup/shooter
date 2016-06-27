@@ -7,6 +7,7 @@ enum class ActorActionType
 	MOVE_UP,
 	MOVE_DOWN,
 	ATTACK,
+	IDLE,
 	EMPTY
 };
 
