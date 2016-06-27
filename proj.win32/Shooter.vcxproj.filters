@@ -75,9 +75,6 @@
     <ClCompile Include="..\Classes\AppDelegate.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\MainMenuScene.cpp">
-      <Filter>src\mainMenu</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\KeyboardController.cpp">
       <Filter>src\inputController\keyboard</Filter>
     </ClCompile>
@@ -86,9 +83,6 @@
     </ClCompile>
     <ClCompile Include="..\Classes\ActionsController.cpp">
       <Filter>src\gameplay\actors\actions</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\GameplayScene.cpp">
-      <Filter>src\gameplay\scene</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\GameActor.cpp">
       <Filter>src\gameplay\actors\baseActor</Filter>
@@ -117,6 +111,12 @@
     <ClCompile Include="..\Classes\WeaponFactory.cpp">
       <Filter>src\factories\weapons</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\GameplayLayer.cpp">
+      <Filter>src\gameplay\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\MainMenuLayer.cpp">
+      <Filter>src\mainMenu</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -124,9 +124,6 @@
     </ClInclude>
     <ClInclude Include="..\Classes\AppDelegate.h">
       <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\MainMenuScene.h">
-      <Filter>src\mainMenu</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\KeyboardController.h">
       <Filter>src\inputController\keyboard</Filter>
@@ -139,9 +136,6 @@
     </ClInclude>
     <ClInclude Include="..\Classes\ActionsController.h">
       <Filter>src\gameplay\actors\actions</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\GameplayScene.h">
-      <Filter>src\gameplay\scene</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\GameActor.h">
       <Filter>src\gameplay\actors\baseActor</Filter>
@@ -181,6 +175,12 @@
     </ClInclude>
     <ClInclude Include="..\Classes\GameNodeFactory.h">
       <Filter>src\factories</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GameplayLayer.h">
+      <Filter>src\gameplay\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\MainMenuLayer.h">
+      <Filter>src\mainMenu</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -151,10 +151,10 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\BulletFactory.cpp" />
     <ClCompile Include="..\Classes\CollisionController.cpp" />
     <ClCompile Include="..\Classes\GameActor.cpp" />
-    <ClCompile Include="..\Classes\GameplayScene.cpp" />
+    <ClCompile Include="..\Classes\GameplayLayer.cpp" />
     <ClCompile Include="..\Classes\Hero.cpp" />
     <ClCompile Include="..\Classes\KeyboardController.cpp" />
-    <ClCompile Include="..\Classes\MainMenuScene.cpp" />
+    <ClCompile Include="..\Classes\MainMenuLayer.cpp" />
     <ClCompile Include="..\Classes\MeleeWeapon.cpp" />
     <ClCompile Include="..\Classes\Monster.cpp" />
     <ClCompile Include="..\Classes\Weapon.cpp" />
@@ -174,11 +174,11 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\CollisionController.h" />
     <ClInclude Include="..\Classes\GameActor.h" />
     <ClInclude Include="..\Classes\GameNodeFactory.h" />
-    <ClInclude Include="..\Classes\GameplayScene.h" />
+    <ClInclude Include="..\Classes\GameplayLayer.h" />
     <ClInclude Include="..\Classes\MeleeWeapon.h" />
     <ClInclude Include="..\Classes\Hero.h" />
     <ClInclude Include="..\Classes\KeyboardController.h" />
-    <ClInclude Include="..\Classes\MainMenuScene.h" />
+    <ClInclude Include="..\Classes\MainMenuLayer.h" />
     <ClInclude Include="..\Classes\Monster.h" />
     <ClInclude Include="..\Classes\Weapon.h" />
     <ClInclude Include="..\Classes\WeaponFactory.h" />

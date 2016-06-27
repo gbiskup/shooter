@@ -1,42 +1,47 @@
 #include <string>
-#include "GameplayScene.h"
-#include "MainMenuScene.h"
+#include "GameplayLayer.h"
+#include "MainMenuLayer.h"
 #include "GameActor.h"
 #include "ActorFactory.h"
 #include "ActionState.h"
 #include "CollisionBitMasks.h"
 
-GameplayScene::~GameplayScene()
+GameplayLayer::~GameplayLayer()
 {
 	log("Destroy gameplay");
 	getEventDispatcher()->removeEventListener(mouseEventListener);
 	keyboardController->disable();
 }
 
-Scene* GameplayScene::createScene()
+Scene* GameplayLayer::createScene()
 {
 	auto scene = Scene::createWithPhysics();
+	initWorld(scene);
+	return scene;
+}
+
+void GameplayLayer::initWorld( Scene* scene )
+{
 	scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
 	scene->getPhysicsWorld()->setGravity(Vec2::ZERO);
-	
+
 	auto visibleSize = Director::getInstance()->getVisibleSize();
 
 	auto edgeBody = PhysicsBody::createEdgeBox(visibleSize, PHYSICSBODY_MATERIAL_DEFAULT, 30);
 	edgeBody->setDynamic(false);
 	edgeBody->setCategoryBitmask(static_cast<int>(CollisionBitmasks::WORLD_BOUNDS));
 	edgeBody->setCollisionBitmask(static_cast<int>(CollisionBitmasks::BULLET) | static_cast<int>(CollisionBitmasks::HERO));
-	edgeBody->setContactTestBitmask(static_cast<int>( CollisionBitmasks::BULLET ));
+	edgeBody->setContactTestBitmask(static_cast<int>(CollisionBitmasks::BULLET));
 	auto edgeNode = Node::create();
 	edgeNode->setPosition(Point(visibleSize.width / 2, visibleSize.height / 2));
 	edgeNode->setPhysicsBody(edgeBody);
 	scene->addChild(edgeNode);
 
-	auto layer = GameplayScene::create();
+	auto layer = GameplayLayer::create();
 	scene->addChild(layer);
-	return scene;
 }
 
-bool GameplayScene::init()
+bool GameplayLayer::init()
 {
 	if (!Layer::init())
 	{
@@ -50,12 +55,21 @@ bool GameplayScene::init()
 	return true;
 }
 
-void GameplayScene::update(float delta)
+void GameplayLayer::update(float delta)
 {
-	
+	if (hero->isDead())
+	{
+		unscheduleUpdate();
+		showGameOver();
+	}
 }
 
-void GameplayScene::initHero()
+void GameplayLayer::showGameOver()
+{
+
+}
+
+void GameplayLayer::initHero()
 {
 	auto visibleSize = Director::getInstance()->getVisibleSize();
 
@@ -67,17 +81,17 @@ void GameplayScene::initHero()
 	monster->followTarget( hero );
 }
 
-void GameplayScene::initMouseController()
+void GameplayLayer::initMouseController()
 {
 	mouseEventListener = EventListenerMouse::create();
-	mouseEventListener->onMouseDown = CC_CALLBACK_1(GameplayScene::mouseDownHandler, this);
-	mouseEventListener->onMouseUp = CC_CALLBACK_1(GameplayScene::mouseUpHandler, this);
-	mouseEventListener->onMouseMove = CC_CALLBACK_1(GameplayScene::mouseMoveHandler, this);
+	mouseEventListener->onMouseDown = CC_CALLBACK_1(GameplayLayer::mouseDownHandler, this);
+	mouseEventListener->onMouseUp = CC_CALLBACK_1(GameplayLayer::mouseUpHandler, this);
+	mouseEventListener->onMouseMove = CC_CALLBACK_1(GameplayLayer::mouseMoveHandler, this);
 
 	getEventDispatcher()->addEventListenerWithSceneGraphPriority(mouseEventListener, this);
 }
 
-void GameplayScene::initCollisionController()
+void GameplayLayer::initCollisionController()
 {
 	auto contactListener = EventListenerPhysicsContact::create();
 	contactListener->onContactBegin = CC_CALLBACK_1(CollisionController::onCollisionBegin, &collisionController);
@@ -85,26 +99,26 @@ void GameplayScene::initCollisionController()
 	getEventDispatcher()->addEventListenerWithSceneGraphPriority(contactListener, this);
 }
 
-void GameplayScene::mouseDownHandler(EventMouse * eventMouse)
+void GameplayLayer::mouseDownHandler(EventMouse * eventMouse)
 {
 	hero->actionsController.startAction(ActorActionType::ATTACK);
 }
 
-void GameplayScene::mouseUpHandler(EventMouse * eventMouse)
+void GameplayLayer::mouseUpHandler(EventMouse * eventMouse)
 {
 	hero->actionsController.stopAction(ActorActionType::ATTACK);
 }
 
-void GameplayScene::mouseMoveHandler(EventMouse * eventMouse)
+void GameplayLayer::mouseMoveHandler(EventMouse * eventMouse)
 {
 	auto mouseVector = eventMouse->getLocationInView();
 	hero->lookAt(mouseVector);
 }
 
-void GameplayScene::initKeyboardController()
+void GameplayLayer::initKeyboardController()
 {
 	keyboardController = KeyboardController::create();
-	keyboardController->registerKeyDownCallback(EventKeyboard::KeyCode::KEY_ESCAPE, CC_CALLBACK_0(GameplayScene::returnToMenu, this));
+	keyboardController->registerKeyDownCallback(EventKeyboard::KeyCode::KEY_ESCAPE, CC_CALLBACK_0(GameplayLayer::returnToMenu, this));
 
 	auto actionController = &hero->actionsController;
 	keyboardController->registerKeyDownCallback(EventKeyboard::KeyCode::KEY_W, CC_CALLBACK_0(ActionsController::startAction, actionController, ActorActionType::MOVE_UP));
@@ -120,7 +134,7 @@ void GameplayScene::initKeyboardController()
 	keyboardController->enable(this);
 }
 
-void GameplayScene::returnToMenu()
+void GameplayLayer::returnToMenu()
 {
-	Director::getInstance()->replaceScene(MainMenuScene::createScene());
+	Director::getInstance()->replaceScene(MainMenuLayer::createScene());
 }

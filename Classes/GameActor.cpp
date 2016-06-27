@@ -50,7 +50,6 @@ void GameActor::takeDamage( int damagePoints )
 {
 	assert( damagePoints > 0 );
 	health -= damagePoints;
-	log("Received damage, remaining hp: %d", health);
 	if (health <= 0)
 	{
 		die();
@@ -154,12 +153,6 @@ void GameActor::applyVelocity()
 	{
 		desiredVelocity = desiredVelocity.rotateByAngle(Vec2::ZERO, -CC_DEGREES_TO_RADIANS(getRotation() - 90));
 	}
-
-	//auto force = Vec2( body->getMass() * dV );
-	//desiredVelocity.y *= body->getMass();*/
-	//getPhysicsBody()->setVelocity(moveDirection);
-	//body->applyForce(force);
-	//getPhysicsBody()->applyImpulse(force);
 
 	getPhysicsBody()->setVelocity(desiredVelocity);
 }

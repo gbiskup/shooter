@@ -1,18 +1,18 @@
 #pragma once
 #include <string>
 #include "cocos2d.h"
-#include "GameplayScene.h"
+#include "GameplayLayer.h"
 
 using namespace cocos2d;
 using namespace std;
 
-class MainMenuScene : public Layer
+class MainMenuLayer : public Layer
 {
 public:
-	~MainMenuScene();
+	~MainMenuLayer();
 	static Scene* createScene();
 	bool init();
-	CREATE_FUNC(MainMenuScene)
+	CREATE_FUNC(MainMenuLayer)
 
 private:
 	Menu * menu;

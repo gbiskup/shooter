@@ -9,15 +9,16 @@
 using namespace cocos2d;
 using namespace std;
 
-class GameplayScene : public Layer
+class GameplayLayer : public Layer
 {
 public:
-	~GameplayScene();
+	~GameplayLayer();
 	static Scene* createScene();
+	static void initWorld( Scene* );
 	bool init();
 	void update(float) override;
 
-	CREATE_FUNC(GameplayScene)
+	CREATE_FUNC(GameplayLayer)
 
 private:
 	void initKeyboardController();
@@ -29,6 +30,7 @@ private:
 
 	void initHero();
 	void returnToMenu();
+	void showGameOver();
 	
 	ActorFactory actorFactory;
 
