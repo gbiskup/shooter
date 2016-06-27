@@ -52,9 +52,6 @@
     <Filter Include="src\gameplay\weapon\abstract">
       <UniqueIdentifier>{d03bb353-d9da-475b-8f6d-ead0125d072c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\gameplay\weapon\meleeWeapon">
-      <UniqueIdentifier>{a28eac0a-b70a-4494-aa38-67fc5481f8c9}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src\factories">
       <UniqueIdentifier>{2590c40f-85e9-4251-85db-6fc07ca97719}</UniqueIdentifier>
     </Filter>
@@ -66,6 +63,12 @@
     </Filter>
     <Filter Include="src\factories\bullets">
       <UniqueIdentifier>{a850b070-34bf-4eb9-ac35-542a2d5bcc61}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\gameplay\weapon\range">
+      <UniqueIdentifier>{e94068d9-3b55-4711-81c5-3959a8aa1979}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\gameplay\weapon\melee">
+      <UniqueIdentifier>{a28eac0a-b70a-4494-aa38-67fc5481f8c9}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -87,9 +90,6 @@
     <ClCompile Include="..\Classes\GameActor.cpp">
       <Filter>src\gameplay\actors\baseActor</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\Weapon.cpp">
-      <Filter>src\gameplay\weapon</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\CollisionController.cpp">
       <Filter>src\gameplay\collision</Filter>
     </ClCompile>
@@ -100,7 +100,7 @@
       <Filter>src\gameplay\weapon\abstract</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\MeleeWeapon.cpp">
-      <Filter>src\gameplay\weapon\meleeWeapon</Filter>
+      <Filter>src\gameplay\weapon\melee</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\ActorFactory.cpp">
       <Filter>src\factories\actors</Filter>
@@ -116,6 +116,9 @@
     </ClCompile>
     <ClCompile Include="..\Classes\MainMenuLayer.cpp">
       <Filter>src\mainMenu</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\RangeWeapon.cpp">
+      <Filter>src\gameplay\weapon\range</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -140,9 +143,6 @@
     <ClInclude Include="..\Classes\GameActor.h">
       <Filter>src\gameplay\actors\baseActor</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\Weapon.h">
-      <Filter>src\gameplay\weapon</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\ActionState.h">
       <Filter>src\gameplay\actors\actions</Filter>
     </ClInclude>
@@ -162,7 +162,7 @@
       <Filter>src\gameplay\weapon\abstract</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\MeleeWeapon.h">
-      <Filter>src\gameplay\weapon\meleeWeapon</Filter>
+      <Filter>src\gameplay\weapon\melee</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\ActorFactory.h">
       <Filter>src\factories\actors</Filter>
@@ -181,6 +181,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\MainMenuLayer.h">
       <Filter>src\mainMenu</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\RangeWeapon.h">
+      <Filter>src\gameplay\weapon\range</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

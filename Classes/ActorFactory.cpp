@@ -44,7 +44,7 @@ Hero* ActorFactory::createHero(const Vec2& spawnPosition)
 
 	auto hero = createNode<Hero, ActorType>(ActorType::HERO);
 	hero->setPhysicsBody( body );
-	//hero->takeWeapon( Weapon::create() );
+	hero->takeWeapon(weaponFactory.createWeapon(WeaponType::RANGE));
 	hero->heal( 100 );
 	hero->setPosition(spawnPosition);
 	return hero;

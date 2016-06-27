@@ -157,7 +157,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\MainMenuLayer.cpp" />
     <ClCompile Include="..\Classes\MeleeWeapon.cpp" />
     <ClCompile Include="..\Classes\Monster.cpp" />
-    <ClCompile Include="..\Classes\Weapon.cpp" />
+    <ClCompile Include="..\Classes\RangeWeapon.cpp" />
     <ClCompile Include="..\Classes\WeaponFactory.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
@@ -180,7 +180,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\KeyboardController.h" />
     <ClInclude Include="..\Classes\MainMenuLayer.h" />
     <ClInclude Include="..\Classes\Monster.h" />
-    <ClInclude Include="..\Classes\Weapon.h" />
+    <ClInclude Include="..\Classes\RangeWeapon.h" />
     <ClInclude Include="..\Classes\WeaponFactory.h" />
     <ClInclude Include="main.h" />
   </ItemGroup>

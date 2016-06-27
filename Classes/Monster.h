@@ -11,7 +11,6 @@ public:
 	void update(float) override;
 	void followTarget(GameActor*);
 protected:
-	void die() override;
 	void startAttack() override;
 	void stopAttack() override;
 private:

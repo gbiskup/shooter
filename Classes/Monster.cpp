@@ -32,12 +32,6 @@ void Monster::followTarget(GameActor * target)
 	actionsController.startAction(ActorActionType::MOVE_UP);
 }
 
-void Monster::die()
-{
-	GameActor::die();
-	removeFromParent();
-}
-
 void Monster::startAttack()
 {
 	actionsController.stopAction(ActorActionType::MOVE_UP);
