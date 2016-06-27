@@ -1,10 +1,9 @@
-#include <string>
 #include "GameplayLayer.h"
 #include "MainMenuLayer.h"
 #include "GameActor.h"
 #include "ActorFactory.h"
-#include "ActionState.h"
 #include "CollisionBitMasks.h"
+#include "ActionsController.h"
 
 GameplayLayer::~GameplayLayer()
 {

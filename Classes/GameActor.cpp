@@ -7,19 +7,8 @@ bool GameActor::init()
 	{
 		return false;
 	}
-	initActionsController();
 	this->scheduleUpdate();
 	return true;
-}
-
-void GameActor::initActionsController()
-{
-	actionsController.addActionState( ActorActionType::ATTACK );
-	actionsController.addActionState( ActorActionType::MOVE_DOWN );
-	actionsController.addActionState( ActorActionType::MOVE_LEFT );
-	actionsController.addActionState( ActorActionType::MOVE_RIGHT );
-	actionsController.addActionState( ActorActionType::MOVE_UP );
-	actionsController.addActionState( ActorActionType::IDLE );
 }
 
 void GameActor::takeWeapon(AbstractWeapon * weaponToUse)
@@ -105,10 +94,9 @@ void GameActor::updateAttack( float dt )
 {
 	if (weapon != nullptr)
 	{
-		ActionState* attackAction = actionsController.getActionState( ActorActionType::ATTACK );
-		if (attackAction->didChange)
+		if (actionsController.didActionChange(ActorActionType::ATTACK))
 		{
-			if (attackAction->isOn)
+			if (actionsController.isActionActive(ActorActionType::ATTACK))
 			{
 				startAttack();
 			}

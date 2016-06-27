@@ -143,9 +143,6 @@
     <ClInclude Include="..\Classes\GameActor.h">
       <Filter>src\gameplay\actors\baseActor</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\ActionState.h">
-      <Filter>src\gameplay\actors\actions</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\Bullet.h">
       <Filter>src\gameplay\weapon\bullet</Filter>
     </ClInclude>

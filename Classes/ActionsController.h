@@ -1,22 +1,28 @@
 #pragma once
 #include <vector>
-#include <memory>
-#include "ActionState.h"
 
 using namespace std;
+
+enum class ActorActionType
+{
+	MOVE_LEFT,
+	MOVE_RIGHT,
+	MOVE_UP,
+	MOVE_DOWN,
+	ATTACK,
+	IDLE
+};
 
 class ActionsController
 {
 public:
-	ActionsController();
+	ActionsController(const int maxStates = 8) : currentState(maxStates) {};
 	void clearDirtyFlags();
 	bool didActionChange(const ActorActionType&) const;
 	bool isActionActive(const ActorActionType&) const;
 	void startAction(const ActorActionType&);
 	void stopAction(const ActorActionType&);
-	const ActionState* getActionState(const ActorActionType&) const;
-	ActionState* getActionState(const ActorActionType&);
-	void addActionState(const ActorActionType&);
+
 private:
-	vector <unique_ptr<ActionState>> actions;
+	vector<pair<bool, bool>> currentState;
 };

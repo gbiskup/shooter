@@ -20,6 +20,7 @@ public:
 	void update(float) override;
 	void startAttack();
 	void stopAttack();
+
 protected:
 	virtual void triggerAttack() = 0;
 

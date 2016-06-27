@@ -1,5 +1,4 @@
 #pragma once
-#include <string>
 #include "cocos2d.h"
 #include "KeyboardController.h"
 #include "CollisionController.h"
@@ -17,7 +16,6 @@ public:
 	static void initWorld( Scene* );
 	bool init();
 	void update(float) override;
-
 	CREATE_FUNC(GameplayLayer)
 
 private:

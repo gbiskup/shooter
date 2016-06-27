@@ -43,7 +43,6 @@ protected:
 
 private:
 	const ActorType type;
-	void initActionsController();
 	void updateMoveDirection();
 	void applyVelocity();
 	void updateAngle();

@@ -10,6 +10,7 @@ class CollisionController
 public:
 	bool onCollisionBegin(PhysicsContact& contact);
 	bool onCollisionEnded(PhysicsContact& contact);
+
 private:
 	bool handleBulletCollision(PhysicsBody*, PhysicsBody*);
 	void damageActorWithBullet(const Bullet*, GameActor*);
