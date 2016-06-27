@@ -62,8 +62,9 @@ void GameplayScene::initHero()
 	hero = dynamic_cast<Hero*>(actorFactory.createActorOfType( ActorType::HERO, Point( visibleSize.width/2, visibleSize.height/2 )));
 	addChild(hero);
 
-	auto monster = actorFactory.createActorOfType( ActorType::MONSTER, Point( visibleSize.width/4, visibleSize.height/2 ));
+	auto monster = actorFactory.createMonster( Point( visibleSize.width/4, visibleSize.height/2 ));
 	addChild(monster);
+	monster->attackTarget( hero );
 }
 
 void GameplayScene::initMouseController()
@@ -85,12 +86,12 @@ void GameplayScene::initCollisionController()
 
 void GameplayScene::mouseDownHandler(EventMouse * eventMouse)
 {
-	hero->actionsController.startAction(ActionType::ATTACK);
+	hero->actionsController.startAction(ActorActionType::ATTACK);
 }
 
 void GameplayScene::mouseUpHandler(EventMouse * eventMouse)
 {
-	hero->actionsController.stopAction(ActionType::ATTACK);
+	hero->actionsController.stopAction(ActorActionType::ATTACK);
 }
 
 void GameplayScene::mouseMoveHandler(EventMouse * eventMouse)
@@ -105,15 +106,15 @@ void GameplayScene::initKeyboardController()
 	keyboardController->registerKeyDownCallback(EventKeyboard::KeyCode::KEY_ESCAPE, CC_CALLBACK_0(GameplayScene::returnToMenu, this));
 
 	auto actionController = &hero->actionsController;
-	keyboardController->registerKeyDownCallback(EventKeyboard::KeyCode::KEY_W, CC_CALLBACK_0(ActionsController::startAction, actionController, ActionType::MOVE_UP));
-	keyboardController->registerKeyDownCallback(EventKeyboard::KeyCode::KEY_S, CC_CALLBACK_0(ActionsController::startAction, actionController, ActionType::MOVE_DOWN));
-	keyboardController->registerKeyDownCallback(EventKeyboard::KeyCode::KEY_A, CC_CALLBACK_0(ActionsController::startAction, actionController, ActionType::MOVE_LEFT));
-	keyboardController->registerKeyDownCallback(EventKeyboard::KeyCode::KEY_D, CC_CALLBACK_0(ActionsController::startAction, actionController, ActionType::MOVE_RIGHT));
+	keyboardController->registerKeyDownCallback(EventKeyboard::KeyCode::KEY_W, CC_CALLBACK_0(ActionsController::startAction, actionController, ActorActionType::MOVE_UP));
+	keyboardController->registerKeyDownCallback(EventKeyboard::KeyCode::KEY_S, CC_CALLBACK_0(ActionsController::startAction, actionController, ActorActionType::MOVE_DOWN));
+	keyboardController->registerKeyDownCallback(EventKeyboard::KeyCode::KEY_A, CC_CALLBACK_0(ActionsController::startAction, actionController, ActorActionType::MOVE_LEFT));
+	keyboardController->registerKeyDownCallback(EventKeyboard::KeyCode::KEY_D, CC_CALLBACK_0(ActionsController::startAction, actionController, ActorActionType::MOVE_RIGHT));
 
-	keyboardController->registerKeyUpCallback(EventKeyboard::KeyCode::KEY_W, CC_CALLBACK_0(ActionsController::stopAction, actionController, ActionType::MOVE_UP));
-	keyboardController->registerKeyUpCallback(EventKeyboard::KeyCode::KEY_S, CC_CALLBACK_0(ActionsController::stopAction, actionController, ActionType::MOVE_DOWN));
-	keyboardController->registerKeyUpCallback(EventKeyboard::KeyCode::KEY_A, CC_CALLBACK_0(ActionsController::stopAction, actionController, ActionType::MOVE_LEFT));
-	keyboardController->registerKeyUpCallback(EventKeyboard::KeyCode::KEY_D, CC_CALLBACK_0(ActionsController::stopAction, actionController, ActionType::MOVE_RIGHT));
+	keyboardController->registerKeyUpCallback(EventKeyboard::KeyCode::KEY_W, CC_CALLBACK_0(ActionsController::stopAction, actionController, ActorActionType::MOVE_UP));
+	keyboardController->registerKeyUpCallback(EventKeyboard::KeyCode::KEY_S, CC_CALLBACK_0(ActionsController::stopAction, actionController, ActorActionType::MOVE_DOWN));
+	keyboardController->registerKeyUpCallback(EventKeyboard::KeyCode::KEY_A, CC_CALLBACK_0(ActionsController::stopAction, actionController, ActorActionType::MOVE_LEFT));
+	keyboardController->registerKeyUpCallback(EventKeyboard::KeyCode::KEY_D, CC_CALLBACK_0(ActionsController::stopAction, actionController, ActorActionType::MOVE_RIGHT));
 
 	keyboardController->enable(this);
 }

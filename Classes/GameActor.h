@@ -30,6 +30,7 @@ protected:
 	Vec2 lookAtPoint;
 	Weapon* weapon;
 	int health;
+	bool lockMovementAtLookPoint;
 
 private:
 	void initActionsController();

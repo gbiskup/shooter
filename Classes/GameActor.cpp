@@ -13,11 +13,11 @@ bool GameActor::init()
 
 void GameActor::initActionsController()
 {
-	actionsController.addActionState( ActionType::ATTACK );
-	actionsController.addActionState( ActionType::MOVE_DOWN );
-	actionsController.addActionState( ActionType::MOVE_LEFT );
-	actionsController.addActionState( ActionType::MOVE_RIGHT );
-	actionsController.addActionState( ActionType::MOVE_UP );
+	actionsController.addActionState( ActorActionType::ATTACK );
+	actionsController.addActionState( ActorActionType::MOVE_DOWN );
+	actionsController.addActionState( ActorActionType::MOVE_LEFT );
+	actionsController.addActionState( ActorActionType::MOVE_RIGHT );
+	actionsController.addActionState( ActorActionType::MOVE_UP );
 }
 
 void GameActor::takeWeapon(Weapon * weaponToUse)
@@ -50,6 +50,7 @@ void GameActor::doDamage( int damagePoints )
 
 void GameActor::update( float dt )
 {
+	desiredVelocity.setZero();
 	updateMoveDirection();
 	applyVelocity();
 	updateAngle();
@@ -68,7 +69,7 @@ void GameActor::updateAttack( float dt )
 {
 	if (weapon != nullptr)
 	{
-		ActionState* attackAction = actionsController.getActionState( ActionType::ATTACK );
+		ActionState* attackAction = actionsController.getActionState( ActorActionType::ATTACK );
 		if (attackAction->didChange)
 		{
 			if (attackAction->isOn)
@@ -85,20 +86,19 @@ void GameActor::updateAttack( float dt )
 
 void GameActor::updateMoveDirection()
 {
-	desiredVelocity.setZero();
-	if (actionsController.isActionActive( ActionType::MOVE_UP ))
+	if (actionsController.isActionActive( ActorActionType::MOVE_UP ))
 	{
 		desiredVelocity.y += maxSpeed;
 	}
-	if (actionsController.isActionActive( ActionType::MOVE_DOWN ))
+	if (actionsController.isActionActive( ActorActionType::MOVE_DOWN ))
 	{
 		desiredVelocity.y -= maxSpeed;
 	}
-	if (actionsController.isActionActive( ActionType::MOVE_LEFT ))
+	if (actionsController.isActionActive( ActorActionType::MOVE_LEFT ))
 	{
 		desiredVelocity.x -= maxSpeed;
 	}
-	if (actionsController.isActionActive( ActionType::MOVE_RIGHT ))
+	if (actionsController.isActionActive( ActorActionType::MOVE_RIGHT ))
 	{
 		desiredVelocity.x += maxSpeed;
 	}
@@ -112,16 +112,16 @@ void GameActor::applyVelocity()
 	auto body = getPhysicsBody();
 	auto currentVelocity = body->getVelocity();
 	auto dV = Vec2( desiredVelocity.x - currentVelocity.x, desiredVelocity.y - currentVelocity.y );
-	
-	auto force = Vec2( body->getMass() * dV );
-	
 
+	if (lockMovementAtLookPoint)
+	{
+		desiredVelocity = desiredVelocity.rotateByAngle(Vec2::ZERO, -CC_DEGREES_TO_RADIANS(getRotation() - 90));
+	}
+
+	//auto force = Vec2( body->getMass() * dV );
 	//desiredVelocity.y *= body->getMass();*/
-
 	//getPhysicsBody()->setVelocity(moveDirection);
-
 	//body->applyForce(force);
-
 	//getPhysicsBody()->applyImpulse(force);
 
 	getPhysicsBody()->setVelocity(desiredVelocity);

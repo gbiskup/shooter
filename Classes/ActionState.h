@@ -1,6 +1,6 @@
 #pragma once
 
-enum class ActionType
+enum class ActorActionType
 {
 	MOVE_LEFT,
 	MOVE_RIGHT,
@@ -13,9 +13,9 @@ enum class ActionType
 class ActionState
 {
 public:
-	ActionState(const ActionType& actionType) : type(actionType) {}
+	ActionState(const ActorActionType& actionType) : type(actionType) {}
 	static const ActionState EMPTY_ACTION;
-	const ActionType type;
+	const ActorActionType type;
 	bool didChange = false;
 	bool isOn = false;
 
@@ -39,7 +39,7 @@ public:
 		didChange = false;
 	}
 
-	const ActionType& getType() const
+	const ActorActionType& getType() const
 	{
 		return type;
 	}

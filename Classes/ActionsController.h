@@ -10,13 +10,13 @@ class ActionsController
 public:
 	ActionsController();
 	void clearDirtyFlags();
-	bool didActionChange(const ActionType&) const;
-	bool isActionActive(const ActionType&) const;
-	void startAction(const ActionType&);
-	void stopAction(const ActionType&);
-	const ActionState* getActionState(const ActionType&) const;
-	ActionState* getActionState(const ActionType&);
-	void addActionState(const ActionType&);
+	bool didActionChange(const ActorActionType&) const;
+	bool isActionActive(const ActorActionType&) const;
+	void startAction(const ActorActionType&);
+	void stopAction(const ActorActionType&);
+	const ActionState* getActionState(const ActorActionType&) const;
+	ActionState* getActionState(const ActorActionType&);
+	void addActionState(const ActorActionType&);
 private:
 	vector <unique_ptr<ActionState>> actions;
 };

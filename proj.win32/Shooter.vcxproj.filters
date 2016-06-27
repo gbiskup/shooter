@@ -52,6 +52,9 @@
     <Filter Include="src\gameplay\weapon\bullet">
       <UniqueIdentifier>{5ee15ef1-32f5-42ff-adf4-2e87fa36f667}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\gameplay\actors\monster">
+      <UniqueIdentifier>{6553a0b5-faf1-43a5-9419-3cf86e03725b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -92,6 +95,9 @@
     </ClCompile>
     <ClCompile Include="..\Classes\CollisionController.cpp">
       <Filter>src\gameplay\collision</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Monster.cpp">
+      <Filter>src\gameplay\actors\monster</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -145,6 +151,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\CollisionController.h">
       <Filter>src\gameplay\collision</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Monster.h">
+      <Filter>src\gameplay\actors\monster</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

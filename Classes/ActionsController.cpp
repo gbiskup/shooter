@@ -14,27 +14,27 @@ void ActionsController::clearDirtyFlags()
 	}
 }
 
-bool ActionsController::didActionChange(const ActionType& actionType) const
+bool ActionsController::didActionChange(const ActorActionType& actionType) const
 {
 	return getActionState(actionType)->getIsActive();
 }
 
-bool ActionsController::isActionActive(const ActionType& actionType) const
+bool ActionsController::isActionActive(const ActorActionType& actionType) const
 {
 	return getActionState(actionType)->getIsActive();
 }
 
-void ActionsController::startAction(const ActionType& actionType)
+void ActionsController::startAction(const ActorActionType& actionType)
 {
 	getActionState(actionType)->setIsActive(true);
 }
 
-void ActionsController::stopAction(const ActionType& actionType)
+void ActionsController::stopAction(const ActorActionType& actionType)
 {
 	getActionState(actionType)->setIsActive(false);
 }
 
-ActionState* ActionsController::getActionState(const ActionType& type)
+ActionState* ActionsController::getActionState(const ActorActionType& type)
 {
 	for (auto& actionState : actions)
 	{
@@ -46,7 +46,7 @@ ActionState* ActionsController::getActionState(const ActionType& type)
 	return nullptr;
 }
 
-const ActionState* ActionsController::getActionState(const ActionType& type) const
+const ActionState* ActionsController::getActionState(const ActorActionType& type) const
 {
 	for (const auto& actionState : actions)
 	{
@@ -58,7 +58,7 @@ const ActionState* ActionsController::getActionState(const ActionType& type) con
 	return nullptr;
 }
 
-void ActionsController::addActionState(const ActionType& type)
+void ActionsController::addActionState(const ActorActionType& type)
 {
 	assert(getActionState(type) == nullptr);
 	actions.push_back( make_unique<ActionState>( type ));
