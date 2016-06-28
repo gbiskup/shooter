@@ -10,6 +10,7 @@ public:
 		GameActor::GameActor(actorType)
 	{};
 	bool init();
+	void die() override;
 	void update(float) override;
 	void followTarget(GameActor*);
 protected:

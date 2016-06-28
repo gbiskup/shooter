@@ -11,6 +11,7 @@ GameplayLayer::~GameplayLayer()
 {
 	getEventDispatcher()->removeEventListener(mouseEventListener);
 	getEventDispatcher()->removeEventListener(keyboardListener);
+	getEventDispatcher()->removeEventListener(contactListener);
 }
 
 Scene* GameplayLayer::createScene()
@@ -51,6 +52,7 @@ bool GameplayLayer::init()
 	initKeyboardController();
 	initMouseController();
 	initCollisionController();
+	spawnMonsters();
 	this->scheduleUpdate();
 	return true;
 }
@@ -70,10 +72,22 @@ void GameplayLayer::initHero()
 	auto visibleSize = Director::getInstance()->getVisibleSize();
 	hero = dynamic_cast<Hero*>(actorFactory.createActorOfType( ActorType::HERO, Point( visibleSize.width/2, visibleSize.height/2 )));
 	addChild(hero);
+}
 
-	auto monster = actorFactory.createMonster( Point( -visibleSize.width/4, visibleSize.height/3 ));
-	addChild(monster);
-	monster->followTarget( hero );
+void GameplayLayer::spawnMonsters()
+{
+	auto visibleSize = Director::getInstance()->getVisibleSize();
+	auto monster = actorFactory.createMonster(Point(-visibleSize.width * 0.25f, visibleSize.height / 3));
+	addChild(monster, 0);
+	monster->followTarget(hero);
+
+	monster = actorFactory.createMonster(Point(visibleSize.width * 1.4f, visibleSize.height * 1.5));
+	addChild(monster, 0);
+	monster->followTarget(hero);
+
+	monster = actorFactory.createMonster(Point(visibleSize.width * 0.5f, -visibleSize.height * 0.5));
+	addChild(monster, 0);
+	monster->followTarget(hero);
 }
 
 void GameplayLayer::initMouseController()
@@ -90,7 +104,7 @@ void GameplayLayer::initMouseController()
 
 void GameplayLayer::initCollisionController()
 {
-	auto contactListener = EventListenerPhysicsContact::create();
+	contactListener = EventListenerPhysicsContact::create();
 	contactListener->onContactBegin = CC_CALLBACK_1(CollisionController::onCollisionBegin, &collisionController);
 	contactListener->onContactSeparate = CC_CALLBACK_1(CollisionController::onCollisionEnded, &collisionController);
 

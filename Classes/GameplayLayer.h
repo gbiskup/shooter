@@ -27,6 +27,7 @@ private:
 	void mouseMoveHandler(EventMouse*);
 
 	void initHero();
+	void spawnMonsters();
 	void returnToMenu();
 	void showGameOver();
 	void initHealtLabel();
@@ -38,6 +39,7 @@ private:
 	CollisionController collisionController;
 	EventListenerMouse * mouseEventListener;
 	EventListenerKeyboard * keyboardListener;
+	EventListenerPhysicsContact * contactListener;
 	PhysicsWorld* world;
 	Hero* hero;
 	Label* healthLabel;

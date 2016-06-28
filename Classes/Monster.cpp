@@ -9,6 +9,19 @@ bool Monster::init()
 	return true;
 }
 
+void Monster::die()
+{
+	GameActor::die();
+
+	runAction(
+		Sequence::create(
+			ScaleTo::create(0.5f, 0.f),
+			CallFunc::create(CC_CALLBACK_0(Monster::removeFromParent, this)),
+			nullptr
+		)
+	);
+}
+
 void Monster::update(float dt)
 {
 	if (target)
