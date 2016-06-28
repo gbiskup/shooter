@@ -5,22 +5,16 @@
 using namespace cocos2d;
 using namespace std;
 
-class KeyboardController : private EventListenerKeyboard
+// This class stores and calls callback function mapped to key codes on keyboard events
+class KeyboardController
 {
 public:
-	~KeyboardController();
-	bool init();
-	void registerKeyDownCallback(EventKeyboard::KeyCode, function<void()>);
-	void registerKeyUpCallback(EventKeyboard::KeyCode, function<void()>);
-	void enable(Node * target);
-	void disable();
-	CREATE_FUNC(KeyboardController)
-
-private:
 	void handleKeyPressed(EventKeyboard::KeyCode, Event*) const;
 	void handleKeyReleased(EventKeyboard::KeyCode, Event*) const;
+	void registerKeyDownCallback(EventKeyboard::KeyCode, function<void()>);
+	void registerKeyUpCallback(EventKeyboard::KeyCode, function<void()>);
+
+private:
 	map <EventKeyboard::KeyCode, function<void()>> keyDownToAction;
 	map <EventKeyboard::KeyCode, function<void()>> keyUpToAction;
-	map <EventKeyboard::KeyCode, bool> keysDown;
-	Node* target = nullptr;
 };

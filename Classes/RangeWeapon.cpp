@@ -17,12 +17,14 @@ Vec2 RangeWeapon::getBulletSpawnOffset()
 
 void RangeWeapon::spawnBullet()
 {
-	auto spawnOffset = getBulletSpawnOffset();
 	auto spawnPosition = getParent()->getPosition();
+	auto spawnOffset = getBulletSpawnOffset();
 	auto bullet = bulletFactory.createBulletOfType( bulletType, spawnPosition, spawnOffset );
 	
-	getParent()->getParent()->addChild(bullet);
-	spawnOffset.scale(30);
 	bullet->setRotation(getParent()->getRotation());
+	getParent()->getParent()->addChild(bullet);
+	
+	// Spawn offset is also bullet's trajectory direction
+	spawnOffset.scale(bulletSpeed); 
 	bullet->getPhysicsBody()->setVelocity(spawnOffset);
 }

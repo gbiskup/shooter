@@ -10,12 +10,6 @@ bool AbstractWeapon::init()
 	return true;
 }
 
-AbstractWeapon::~AbstractWeapon()
-{
-	log("AWeapon destroyed");
-}
-
-
 void AbstractWeapon::update(float dt)
 {
 	reduceCooldown(dt);

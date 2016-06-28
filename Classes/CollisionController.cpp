@@ -5,7 +5,7 @@ bool CollisionController::onCollisionBegin(PhysicsContact& contact)
 {
 	auto bodyA = contact.getShapeA()->getBody();
 	auto bodyB = contact.getShapeB()->getBody();
-	if (!handleBulletCollision(bodyA, bodyB))
+	if (!handleBulletCollision(bodyA, bodyB) && !handleBulletCollision(bodyB, bodyA))
 	{
 		handleActorCollision(bodyA, bodyB, true);
 	}
@@ -25,33 +25,23 @@ bool CollisionController::handleBulletCollision(PhysicsBody *bodyA, PhysicsBody 
 	auto bullet = dynamic_cast<Bullet*>(bodyA->getNode());
 	if (bullet != nullptr)
 	{
+		// The first body is a bullet..
 		auto actor = dynamic_cast<GameActor*>(bodyB->getNode());
 		if (actor != nullptr)
 		{
+			// ..and the second is an actor. Do damage.
 			damageActorWithBullet(bullet, actor);
 		}
+		// TODO: don't remove piercing bullets
 		bullet->removeFromParent();
 		return true;
-	}
-	else
-	{
-		auto bullet = dynamic_cast<Bullet*>(bodyB->getNode());
-		if (bullet != nullptr)
-		{
-			auto actor = dynamic_cast<GameActor*>(bodyA->getNode());
-			if (actor != nullptr)
-			{
-				damageActorWithBullet(bullet, actor);
-			}
-			bullet->removeFromParent();
-			return true;
-		}
 	}
 	return false;
 }
 
 void CollisionController::damageActorWithBullet(const Bullet * bullet, GameActor* actor)
 {
+	// TODO: Decrease damage for piercing bullets
 	actor->takeDamage(bullet->getDamage());
 }
 

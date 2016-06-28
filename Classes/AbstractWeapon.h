@@ -14,8 +14,10 @@ enum class WeaponType
 class AbstractWeapon : public Node
 {
 public:
-	AbstractWeapon(const WeaponType& type) : type(type) {};
-	virtual ~AbstractWeapon();
+	AbstractWeapon(const WeaponType& type) : 
+		type(type) 
+	{};
+	virtual ~AbstractWeapon() = default;
 	virtual bool init();
 	void update(float) override;
 	void startAttack();
@@ -25,11 +27,10 @@ protected:
 	virtual void triggerAttack() = 0;
 
 private:
-	WeaponType type;
 	void resetCooldown();
 	void reduceCooldown(float);
+	WeaponType type;
 	bool isAttacking = false;
 	float damageRate = 0.25f;
 	float damageCooldown = 0;
-
 };

@@ -3,7 +3,6 @@
 #include "BulletFactory.h"
 #include "Bullet.h"
 #include "AbstractWeapon.h"
-#include "WeaponFactory.h"
 
 using namespace cocos2d;
 
@@ -18,7 +17,8 @@ public:
 
 private:
 	void spawnBullet();
-	Vec2 getBulletSpawnOffset();
+	Vec2 getBulletSpawnOffset(); // Calculates vector from owner's center to where bullets spawn
 	BulletType bulletType;
 	BulletFactory bulletFactory;
+	const float bulletSpeed = 30.f;
 };

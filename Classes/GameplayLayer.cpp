@@ -9,9 +9,8 @@
 
 GameplayLayer::~GameplayLayer()
 {
-	log("Destroy gameplay");
 	getEventDispatcher()->removeEventListener(mouseEventListener);
-	//keyboardController->disable();
+	getEventDispatcher()->removeEventListener(keyboardListener);
 }
 
 Scene* GameplayLayer::createScene()
@@ -23,16 +22,15 @@ Scene* GameplayLayer::createScene()
 
 void GameplayLayer::initWorld( Scene* scene )
 {
-	//scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
 	scene->getPhysicsWorld()->setGravity(Vec2::ZERO);
 
 	auto visibleSize = Director::getInstance()->getVisibleSize();
-
-	auto edgeBody = PhysicsBody::createEdgeBox(visibleSize, PHYSICSBODY_MATERIAL_DEFAULT, 30);
+	auto edgeBody = PhysicsBody::createEdgeBox(visibleSize, PHYSICSBODY_MATERIAL_DEFAULT, 30); // Bounds preventing player or bullets leaving the screen
 	edgeBody->setDynamic(false);
 	edgeBody->setCategoryBitmask(static_cast<int>(CollisionBitmasks::WORLD_BOUNDS));
-	edgeBody->setCollisionBitmask(static_cast<int>(CollisionBitmasks::BULLET) | static_cast<int>(CollisionBitmasks::HERO));
-	edgeBody->setContactTestBitmask(static_cast<int>(CollisionBitmasks::BULLET));
+	edgeBody->setCollisionBitmask(static_cast<int>(CollisionBitmasks::BULLET) | static_cast<int>(CollisionBitmasks::HERO)); // Don't bother colliding with monsters
+	edgeBody->setContactTestBitmask(static_cast<int>(CollisionBitmasks::BULLET)); // Trigger events only for bullets. Default collision handling for hero.
+
 	auto edgeNode = Node::create();
 	edgeNode->setPosition(Point(visibleSize.width / 2, visibleSize.height / 2));
 	edgeNode->setPhysicsBody(edgeBody);
@@ -70,7 +68,6 @@ void GameplayLayer::update(float delta)
 void GameplayLayer::initHero()
 {
 	auto visibleSize = Director::getInstance()->getVisibleSize();
-
 	hero = dynamic_cast<Hero*>(actorFactory.createActorOfType( ActorType::HERO, Point( visibleSize.width/2, visibleSize.height/2 )));
 	addChild(hero);
 
@@ -82,6 +79,8 @@ void GameplayLayer::initHero()
 void GameplayLayer::initMouseController()
 {
 	mouseEventListener = EventListenerMouse::create();
+
+	//Simplify std::binds with cocos macro
 	mouseEventListener->onMouseDown = CC_CALLBACK_1(GameplayLayer::mouseDownHandler, this);
 	mouseEventListener->onMouseUp = CC_CALLBACK_1(GameplayLayer::mouseUpHandler, this);
 	mouseEventListener->onMouseMove = CC_CALLBACK_1(GameplayLayer::mouseMoveHandler, this);
@@ -94,6 +93,7 @@ void GameplayLayer::initCollisionController()
 	auto contactListener = EventListenerPhysicsContact::create();
 	contactListener->onContactBegin = CC_CALLBACK_1(CollisionController::onCollisionBegin, &collisionController);
 	contactListener->onContactSeparate = CC_CALLBACK_1(CollisionController::onCollisionEnded, &collisionController);
+
 	getEventDispatcher()->addEventListenerWithSceneGraphPriority(contactListener, this);
 }
 
@@ -115,21 +115,25 @@ void GameplayLayer::mouseMoveHandler(EventMouse * eventMouse)
 
 void GameplayLayer::initKeyboardController()
 {
-	keyboardController = KeyboardController::create();
-	keyboardController->registerKeyDownCallback(EventKeyboard::KeyCode::KEY_ESCAPE, CC_CALLBACK_0(GameplayLayer::returnToMenu, this));
+	keyboardListener = EventListenerKeyboard::create();
+	keyboardListener->onKeyPressed = CC_CALLBACK_2(KeyboardController::handleKeyPressed, &keyboardController);
+	keyboardListener->onKeyReleased = CC_CALLBACK_2(KeyboardController::handleKeyReleased, &keyboardController);
+	getEventDispatcher()->addEventListenerWithSceneGraphPriority(keyboardListener, this);
 
+	// Hero controls
 	auto actionController = &hero->actionsController;
-	keyboardController->registerKeyDownCallback(EventKeyboard::KeyCode::KEY_W, CC_CALLBACK_0(ActionsController::startAction, actionController, ActorActionType::MOVE_UP));
-	keyboardController->registerKeyDownCallback(EventKeyboard::KeyCode::KEY_S, CC_CALLBACK_0(ActionsController::startAction, actionController, ActorActionType::MOVE_DOWN));
-	keyboardController->registerKeyDownCallback(EventKeyboard::KeyCode::KEY_A, CC_CALLBACK_0(ActionsController::startAction, actionController, ActorActionType::MOVE_LEFT));
-	keyboardController->registerKeyDownCallback(EventKeyboard::KeyCode::KEY_D, CC_CALLBACK_0(ActionsController::startAction, actionController, ActorActionType::MOVE_RIGHT));
+	keyboardController.registerKeyDownCallback(EventKeyboard::KeyCode::KEY_W, CC_CALLBACK_0(ActionsController::startAction, actionController, ActorActionType::MOVE_UP));
+	keyboardController.registerKeyDownCallback(EventKeyboard::KeyCode::KEY_S, CC_CALLBACK_0(ActionsController::startAction, actionController, ActorActionType::MOVE_DOWN));
+	keyboardController.registerKeyDownCallback(EventKeyboard::KeyCode::KEY_A, CC_CALLBACK_0(ActionsController::startAction, actionController, ActorActionType::MOVE_LEFT));
+	keyboardController.registerKeyDownCallback(EventKeyboard::KeyCode::KEY_D, CC_CALLBACK_0(ActionsController::startAction, actionController, ActorActionType::MOVE_RIGHT));
 
-	keyboardController->registerKeyUpCallback(EventKeyboard::KeyCode::KEY_W, CC_CALLBACK_0(ActionsController::stopAction, actionController, ActorActionType::MOVE_UP));
-	keyboardController->registerKeyUpCallback(EventKeyboard::KeyCode::KEY_S, CC_CALLBACK_0(ActionsController::stopAction, actionController, ActorActionType::MOVE_DOWN));
-	keyboardController->registerKeyUpCallback(EventKeyboard::KeyCode::KEY_A, CC_CALLBACK_0(ActionsController::stopAction, actionController, ActorActionType::MOVE_LEFT));
-	keyboardController->registerKeyUpCallback(EventKeyboard::KeyCode::KEY_D, CC_CALLBACK_0(ActionsController::stopAction, actionController, ActorActionType::MOVE_RIGHT));
+	keyboardController.registerKeyUpCallback(EventKeyboard::KeyCode::KEY_W, CC_CALLBACK_0(ActionsController::stopAction, actionController, ActorActionType::MOVE_UP));
+	keyboardController.registerKeyUpCallback(EventKeyboard::KeyCode::KEY_S, CC_CALLBACK_0(ActionsController::stopAction, actionController, ActorActionType::MOVE_DOWN));
+	keyboardController.registerKeyUpCallback(EventKeyboard::KeyCode::KEY_A, CC_CALLBACK_0(ActionsController::stopAction, actionController, ActorActionType::MOVE_LEFT));
+	keyboardController.registerKeyUpCallback(EventKeyboard::KeyCode::KEY_D, CC_CALLBACK_0(ActionsController::stopAction, actionController, ActorActionType::MOVE_RIGHT));
 
-	keyboardController->enable(this);
+	// Layer controls
+	keyboardController.registerKeyDownCallback(EventKeyboard::KeyCode::KEY_ESCAPE, CC_CALLBACK_0(GameplayLayer::returnToMenu, this));
 }
 
 void GameplayLayer::initHealtLabel()

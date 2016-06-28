@@ -1,7 +1,6 @@
 #pragma once
 #include <string>
 #include "cocos2d.h"
-#include "GameplayLayer.h"
 
 using namespace cocos2d;
 using namespace std;
@@ -9,14 +8,14 @@ using namespace std;
 class MainMenuLayer : public Layer
 {
 public:
-	~MainMenuLayer();
-	static Scene* createScene();
+	static Scene* createScene(); // Creates empty scene and adds this layer there
 	bool init();
-	CREATE_FUNC(MainMenuLayer)
+	CREATE_FUNC(MainMenuLayer) // Macro doing Obj-C style initialization and returning autorlease pointer
 
 private:
-	Menu * menu;
+	void createMenu();
+	void addMenuItem(const string&, const ccMenuCallback&);
 	void exitCallback(const Ref * sender);
 	void startCallback(const Ref* sender);
-	void addItem(const string&, const ccMenuCallback&);
+	Menu * menu;
 };

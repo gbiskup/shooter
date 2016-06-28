@@ -1,5 +1,6 @@
 #pragma once
 
+// Physics categories definition. Used for handling non standard collisions
 enum class CollisionBitmasks
 {
 	NONE = 0,

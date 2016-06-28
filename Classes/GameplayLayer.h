@@ -13,7 +13,7 @@ class GameplayLayer : public Layer
 public:
 	~GameplayLayer();
 	static Scene* createScene();
-	static void initWorld( Scene* );
+	static void initWorld(Scene*);
 	bool init();
 	void update(float) override;
 	CREATE_FUNC(GameplayLayer)
@@ -34,11 +34,12 @@ private:
 	Vec2 getScreenCenter();
 
 	ActorFactory actorFactory;
-	EventListenerMouse * mouseEventListener;
-	KeyboardController* keyboardController;
+	KeyboardController keyboardController;
 	CollisionController collisionController;
+	EventListenerMouse * mouseEventListener;
+	EventListenerKeyboard * keyboardListener;
 	PhysicsWorld* world;
 	Hero* hero;
 	Label* healthLabel;
-	int lastShownHealth = 0;
+	int lastShownHealth = 0; // To prevent constant health label refreshing
 };

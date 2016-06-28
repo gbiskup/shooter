@@ -15,6 +15,6 @@ private:
 	bool handleBulletCollision(PhysicsBody*, PhysicsBody*);
 	void damageActorWithBullet(const Bullet*, GameActor*);
 	bool handleActorCollision(PhysicsBody*, PhysicsBody*, bool);
-	bool handleMelleeAttackStart(GameActor* actorA, GameActor* actorB);
-	bool handleMelleeAttackStop(GameActor* actorA, GameActor* actorB);
+	bool handleMelleeAttackStart(GameActor*, GameActor*);
+	bool handleMelleeAttackStop(GameActor*, GameActor*);
 };
