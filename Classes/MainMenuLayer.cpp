@@ -49,7 +49,7 @@ void MainMenuLayer::exitCallback(const Ref* sender)
 
 void MainMenuLayer::addItem(const string & text, const ccMenuCallback& callback)
 {
-	auto label = Label::createWithTTF(text, FontPaths::MENU_FONT_PATH, 24);
+	auto label = Label::createWithTTF(text, FontPaths::MAIN_FONT, 24);
 	auto menuItem = MenuItemLabel::create(label, callback);
 	menu->addChild(menuItem);
 }

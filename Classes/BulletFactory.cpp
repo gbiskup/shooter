@@ -1,5 +1,6 @@
 #include "BulletFactory.h"
 #include "CollisionBitMasks.h"
+#include "AssetConstants.h"
 
 Bullet * BulletFactory::createBulletOfType(const BulletType& bulletType, Vec2 position, Vec2 offset)
 {
@@ -30,5 +31,7 @@ Bullet * BulletFactory::createStandardBullet(Vec2 position, Vec2 offset)
 	position.add(offset);
 	bullet->setPosition(position);
 	bullet->setDamage(damage);
+	auto sprite = Sprite::create(SpritePaths::BULLET);
+	bullet->addChild(sprite);
 	return bullet;
 }

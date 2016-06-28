@@ -2,7 +2,16 @@
 
 #include <string>
 
+using namespace std;
+
 namespace FontPaths
 {
-	const std::string MENU_FONT_PATH = "fonts/Marker Felt.ttf";
+	const string MAIN_FONT = "fonts/Marker Felt.ttf";
+}
+
+namespace SpritePaths
+{
+	const string HERO = "sprites/survivor-idle_rifle_0.png";
+	const string BULLET = "sprites/bullet.png";
+	const string MONSTER = "sprites/monster.png";
 }

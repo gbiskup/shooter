@@ -23,5 +23,6 @@ void RangeWeapon::spawnBullet()
 	
 	getParent()->getParent()->addChild(bullet);
 	spawnOffset.scale(30);
-	bullet->getPhysicsBody()->applyImpulse(spawnOffset);
+	bullet->setRotation(getParent()->getRotation());
+	bullet->getPhysicsBody()->setVelocity(spawnOffset);
 }

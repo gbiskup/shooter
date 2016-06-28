@@ -1,6 +1,7 @@
 #include "ActorFactory.h"
 #include "CollisionBitMasks.h"
 #include "AbstractWeapon.h"
+#include "AssetConstants.h"
 
 GameActor * ActorFactory::createActorOfType(const ActorType& actorType, const Vec2& spawnPosition)
 {
@@ -32,6 +33,10 @@ Monster * ActorFactory::createMonster(const Vec2& spawnPosition)
 	monster->setMaxSpeed( 100.f );
 	monster->setPosition(spawnPosition);
 	monster->takeWeapon(weaponFactory.createWeapon(WeaponType::MELEE));
+	auto sprite = Sprite::create(SpritePaths::MONSTER);
+	sprite->setRotation(180);
+	monster->addChild(sprite);
+
 	return monster;
 }
 
@@ -47,6 +52,10 @@ Hero* ActorFactory::createHero(const Vec2& spawnPosition)
 	hero->takeWeapon(weaponFactory.createWeapon(WeaponType::RANGE));
 	hero->heal( 100 );
 	hero->setPosition(spawnPosition);
+	auto sprite = Sprite::create(SpritePaths::HERO);
+	sprite->setRotation(180);
+	sprite->setAnchorPoint(Vec2(0.5f, 0.3f));
+	hero->addChild(sprite);
 	return hero;
 }
 

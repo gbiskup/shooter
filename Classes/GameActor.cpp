@@ -55,6 +55,10 @@ void GameActor::die()
 
 void GameActor::stayIdle()
 {
+	if (weapon != nullptr)
+	{
+		weapon->stopAttack();
+	}
 	actionsController.startAction(ActorActionType::IDLE);
 	unscheduleUpdate();
 	getPhysicsBody()->setVelocity(Vec2::ZERO);

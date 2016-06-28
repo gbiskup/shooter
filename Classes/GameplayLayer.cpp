@@ -11,7 +11,7 @@ GameplayLayer::~GameplayLayer()
 {
 	log("Destroy gameplay");
 	getEventDispatcher()->removeEventListener(mouseEventListener);
-	keyboardController->disable();
+	//keyboardController->disable();
 }
 
 Scene* GameplayLayer::createScene()
@@ -134,7 +134,7 @@ void GameplayLayer::initKeyboardController()
 
 void GameplayLayer::initHealtLabel()
 {
-	healthLabel = Label::createWithTTF("", FontPaths::MENU_FONT_PATH, 24);
+	healthLabel = Label::createWithTTF("", FontPaths::MAIN_FONT, 24);
 	healthLabel->setAnchorPoint(Vec2(1.0, 1.0));
 	auto visibleSize = Director::getInstance()->getVisibleSize();
 	healthLabel->setPosition(Vec2(visibleSize.width, visibleSize.height));
@@ -159,7 +159,7 @@ Vec2 GameplayLayer::getScreenCenter()
 
 void GameplayLayer::showGameOver()
 {
-	auto gameOverLabel = Label::createWithTTF("The hero is dead. Esc - get back to menu.", FontPaths::MENU_FONT_PATH, 24);
+	auto gameOverLabel = Label::createWithTTF("The hero is dead. Esc - get back to menu.", FontPaths::MAIN_FONT, 24);
 	gameOverLabel->setPosition(getScreenCenter());
 	addChild(gameOverLabel);
 }
