@@ -29,8 +29,8 @@ Monster * ActorFactory::createMonster(const Vec2& spawnPosition)
 
 	auto monster = createNode<Monster, ActorType>(ActorType::MONSTER);
 	monster->setPhysicsBody( body );
-	monster->heal( 20 );
-	monster->setMaxSpeed( 100.f );
+	monster->heal(100);
+	monster->setMaxSpeed(100.f);
 	monster->setPosition(spawnPosition);
 	monster->takeWeapon(weaponFactory.createWeapon(WeaponType::MELEE));
 	auto sprite = Sprite::create(SpritePaths::MONSTER);
@@ -48,9 +48,9 @@ Hero* ActorFactory::createHero(const Vec2& spawnPosition)
 	body->setContactTestBitmask( static_cast<int>( CollisionBitmasks::MONSTER ));
 
 	auto hero = createNode<Hero, ActorType>(ActorType::HERO);
-	hero->setPhysicsBody( body );
+	hero->setPhysicsBody(body);
 	hero->takeWeapon(weaponFactory.createWeapon(WeaponType::RANGE));
-	hero->heal( 100 );
+	hero->heal(100);
 	hero->setPosition(spawnPosition);
 	auto sprite = Sprite::create(SpritePaths::HERO);
 	sprite->setRotation(180);

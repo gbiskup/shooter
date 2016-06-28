@@ -6,7 +6,9 @@
 class Monster : public GameActor
 {
 public:
-	Monster(const ActorType& actorType) : GameActor::GameActor(actorType) {};
+	Monster(const ActorType& actorType) : 
+		GameActor::GameActor(actorType)
+	{};
 	bool init();
 	void update(float) override;
 	void followTarget(GameActor*);

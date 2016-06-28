@@ -10,6 +10,7 @@
 using namespace cocos2d;
 using namespace std;
 
+// TODO: Add pooling
 class ActorFactory : public GameNodeFactory
 {
 public:

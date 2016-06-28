@@ -53,13 +53,15 @@ bool CollisionController::handleActorCollision(PhysicsBody * bodyA, PhysicsBody 
 	{
 		if (bodiesAreInContact)
 		{
-			if (!handleMelleeAttackStart(actorA, actorB))
+			// Currently only monsters can have melee weapon so it has to check both directions
+			if (!handleMelleeAttackStart(actorA, actorB)) // was actorA a monster?
 			{
-				handleMelleeAttackStart(actorB, actorA);
+				handleMelleeAttackStart(actorB, actorA); // try actorB then..
 			}
 		}
 		else
 		{
+			// Separate bodies
 			if (!handleMelleeAttackStop(actorA, actorB))
 			{
 				handleMelleeAttackStop(actorB, actorA);

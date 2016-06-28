@@ -13,10 +13,13 @@ enum class ActorActionType
 	IDLE
 };
 
+// This class stores actors' intentions
 class ActionsController
 {
 public:
-	ActionsController(const int maxStates = 8) : currentState(maxStates) {};
+	ActionsController(const int maxStates = 8) : 
+		actionStates(maxStates) 
+	{};
 	void clearDirtyFlags();
 	bool didActionChange(const ActorActionType&) const;
 	bool isActionActive(const ActorActionType&) const;
@@ -24,5 +27,5 @@ public:
 	void stopAction(const ActorActionType&);
 
 private:
-	vector<pair<bool, bool>> currentState;
+	vector<pair<bool, bool>> actionStates; // First bool - current state, second - previous state
 };

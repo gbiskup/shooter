@@ -2,6 +2,7 @@
 
 #include "Bullet.h"
 
+// TODO: Add pooling
 class BulletFactory
 {
 public:

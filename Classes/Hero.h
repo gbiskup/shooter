@@ -4,8 +4,11 @@
 
 using namespace cocos2d;
 
+// For future use like picking up health, ammo and guns.
 class Hero : public GameActor
 {
 public:
-	Hero(const ActorType& actorType) : GameActor(actorType) {};
+	Hero(const ActorType& actorType) :
+		GameActor(actorType)
+	{};
 };

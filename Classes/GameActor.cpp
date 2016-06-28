@@ -15,6 +15,7 @@ void GameActor::takeWeapon(AbstractWeapon * weaponToUse)
 {
 	if (weapon != nullptr)
 	{
+		// Stop using an old weapon if you have any
 		stopAttack();
 	}
 	weapon = weaponToUse;
@@ -49,6 +50,7 @@ void GameActor::die()
 {
 	dead = true;
 	stayIdle();
+	// Prevent all collisions
 	getPhysicsBody()->setCategoryBitmask(static_cast<int>(CollisionBitmasks::DEAD_BODY));
 	getPhysicsBody()->setCollisionBitmask(static_cast<int>(CollisionBitmasks::NONE));
 }
@@ -72,7 +74,7 @@ void GameActor::update( float dt )
 		updateMoveDirection();
 		applyVelocity();
 		updateAngle();
-		updateAttack(dt);
+		updateAttack();
 	}
 	actionsController.clearDirtyFlags();
 }
@@ -94,7 +96,7 @@ void GameActor::stopAttack()
 	weapon->stopAttack();
 }
 
-void GameActor::updateAttack( float dt )
+void GameActor::updateAttack()
 {
 	if (weapon != nullptr)
 	{
@@ -116,26 +118,27 @@ void GameActor::updateMoveDirection()
 {
 	if (actionsController.isActionActive( ActorActionType::MOVE_UP ))
 	{
-		desiredVelocity.y += maxSpeed;
+		desiredVelocity.y += 1.f;
 	}
 	if (actionsController.isActionActive( ActorActionType::MOVE_DOWN ))
 	{
-		desiredVelocity.y -= maxSpeed;
+		desiredVelocity.y -= 1.f;
 	}
 	if (actionsController.isActionActive( ActorActionType::MOVE_LEFT ))
 	{
-		desiredVelocity.x -= maxSpeed;
+		desiredVelocity.x -= 1.f;
 	}
 	if (actionsController.isActionActive( ActorActionType::MOVE_RIGHT ))
 	{
-		desiredVelocity.x += maxSpeed;
+		desiredVelocity.x += 1.f;
 	}
 }
 
 void GameActor::applyVelocity()
 {
+	// Prevent extra speed on diagonal directions
 	desiredVelocity.normalize();
-	desiredVelocity.scale( maxSpeed );
+	desiredVelocity.scale(maxSpeed);
 	
 	auto body = getPhysicsBody();
 	auto currentVelocity = body->getVelocity();
@@ -145,6 +148,5 @@ void GameActor::applyVelocity()
 	{
 		desiredVelocity = desiredVelocity.rotateByAngle(Vec2::ZERO, -CC_DEGREES_TO_RADIANS(getRotation() - 90));
 	}
-
 	getPhysicsBody()->setVelocity(desiredVelocity);
 }

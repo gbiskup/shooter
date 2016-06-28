@@ -3,7 +3,7 @@
 
 void ActionsController::clearDirtyFlags()
 {
-	for (auto& pair : currentState)
+	for (auto& pair : actionStates)
 	{
 		pair.second = pair.first;
 	}
@@ -11,21 +11,21 @@ void ActionsController::clearDirtyFlags()
 
 bool ActionsController::didActionChange(const ActorActionType& actionType) const
 {
-	auto pair = currentState[static_cast<int>(actionType)];
+	auto pair = actionStates[static_cast<int>(actionType)];
 	return pair.first != pair.second;
 }
 
 bool ActionsController::isActionActive(const ActorActionType& actionType) const
 {
-	return currentState[static_cast<int>(actionType)].first;
+	return actionStates[static_cast<int>(actionType)].first;
 }
 
 void ActionsController::startAction(const ActorActionType& actionType)
 {
-	currentState[static_cast<int>(actionType)].first = true;
+	actionStates[static_cast<int>(actionType)].first = true;
 }
 
 void ActionsController::stopAction(const ActorActionType& actionType)
 {
-	currentState[static_cast<int>(actionType)].first = false;
+	actionStates[static_cast<int>(actionType)].first = false;
 }
