@@ -25,12 +25,12 @@ public:
 
 protected:
 	virtual void triggerAttack() = 0;
+	float damageRate = 0.25f;
 
 private:
 	void resetCooldown();
 	void reduceCooldown(float);
 	WeaponType type;
 	bool isAttacking = false;
-	float damageRate = 0.25f;
 	float damageCooldown = 0;
 };

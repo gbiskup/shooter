@@ -3,6 +3,7 @@
 #include "cocos2d.h"
 #include "GameNodeFactory.h"
 #include "GameActor.h"
+#include "ActorType.h"
 #include "Monster.h"
 #include "Hero.h"
 #include "WeaponFactory.h"
@@ -14,9 +15,10 @@ using namespace std;
 class ActorFactory : public GameNodeFactory
 {
 public:
-	GameActor * createActorOfType(const ActorType&, const Vec2&);
-	Hero * createHero(const Vec2&);
-	Monster * createMonster(const Vec2&);
+	GameActor * createActorOfType(const ActorConfig&);
+	Hero * createHero(const ActorConfig&);
+	Monster * createMonster(const ActorConfig&);
 private:
 	WeaponFactory weaponFactory;
+	void updateConfig(GameActor * actor, const ActorConfig & config);;
 };

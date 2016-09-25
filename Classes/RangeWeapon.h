@@ -12,7 +12,9 @@ public:
 	RangeWeapon(const WeaponType& weaponType, const BulletType& bulletType = BulletType::STANDARD_BULLET) : 
 		AbstractWeapon( weaponType ),
 		bulletType (bulletType)
-	{};
+	{
+		damageRate = 0.15;
+	};
 	void triggerAttack() override;
 
 private:
@@ -20,5 +22,5 @@ private:
 	Vec2 getBulletSpawnOffset(); // Calculates vector from owner's center to where bullets spawn
 	BulletType bulletType;
 	BulletFactory bulletFactory;
-	const float bulletSpeed = 30.f;
+	const float bulletSpeed = 40.f;
 };

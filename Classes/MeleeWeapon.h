@@ -9,7 +9,9 @@ class MeleeWeapon : public AbstractWeapon
 public:
 	MeleeWeapon(const WeaponType& type) : 
 		AbstractWeapon(type) 
-	{};
+	{
+		damageRate = 0.25;
+	};
 
 	// Actor to attack. Only set durring collision with weapon's owner
 	void setTarget(GameActor* target) 

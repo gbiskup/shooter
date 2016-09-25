@@ -1,34 +1,27 @@
 #pragma once
 
 #include "cocos2d.h"
+#include "ActorType.h"
 #include "ActionsController.h"
 #include "AbstractWeapon.h"
+#include "ActorConfig.h"
 
 using namespace cocos2d;
 using namespace std;
 
-enum class ActorType
-{
-	HERO,
-	MONSTER
-};
+
 
 class GameActor : public Node
 {
 public:
-	GameActor(const ActorType& actorType) :
-		type(actorType)
-	{};
+	GameActor(const ActorConfig& config);
 
 	void setMaxSpeed(float maxSpeed) 
 	{ 
 		this->maxSpeed = maxSpeed;
 	};
 
-	const ActorType& getType() const 
-	{ 
-		return type; 
-	};
+	const ActorType& getType() const;
 
 	int getHealth() const 
 	{ 
@@ -62,7 +55,7 @@ protected:
 	bool lockMoveDirectionAtLookPoint = false; // makes actor rotate it's move direction in relation to where it looks
 
 private:
-	const ActorType type;
+	ActorConfig config;
 	void updateMoveDirection();
 	void applyVelocity();
 	void updateAngle();

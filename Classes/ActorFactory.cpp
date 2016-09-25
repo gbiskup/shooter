@@ -2,25 +2,26 @@
 #include "CollisionBitMasks.h"
 #include "AbstractWeapon.h"
 #include "AssetConstants.h"
+#include "ActorConfig.h"
 
-GameActor * ActorFactory::createActorOfType(const ActorType& actorType, const Vec2& spawnPosition)
+GameActor * ActorFactory::createActorOfType(const ActorConfig& actorConfig)
 {
 	GameActor * actor;
-	switch (actorType)
+	switch (actorConfig.getType())
 	{
 		case ActorType::HERO:
-			actor = static_cast<GameActor*>( createHero( spawnPosition ));
+			actor = static_cast<GameActor*>( createHero( actorConfig ));
 			break;
 
 		default:
 		case ActorType::MONSTER:
-			actor = static_cast<GameActor*>( createMonster( spawnPosition ));
+			actor = static_cast<GameActor*>( createMonster( actorConfig ));
 			break;
 	}
 	return actor;
 }
 
-Monster * ActorFactory::createMonster(const Vec2& spawnPosition)
+Monster * ActorFactory::createMonster(const ActorConfig& config)
 {
 	auto body = PhysicsBody::createCircle( 40, PhysicsMaterial( 1.0f, 1.0f, 0.0f ));
 	body->setCategoryBitmask( static_cast<int>( CollisionBitmasks::MONSTER ));
@@ -34,11 +35,9 @@ Monster * ActorFactory::createMonster(const Vec2& spawnPosition)
 		static_cast<int>(CollisionBitmasks::HERO )
 	);
 
-	auto monster = createNode<Monster, ActorType>(ActorType::MONSTER);
+	auto monster = createNode<Monster, ActorConfig>(ActorConfig(ActorType::MONSTER));
 	monster->setPhysicsBody( body );
-	monster->heal(100);
-	monster->setMaxSpeed(100.f);
-	monster->setPosition(spawnPosition);
+	updateConfig(monster, config);
 	monster->takeWeapon(weaponFactory.createWeapon(WeaponType::MELEE));
 	auto sprite = Sprite::create(SpritePaths::MONSTER);
 	sprite->setRotation(180);
@@ -47,7 +46,14 @@ Monster * ActorFactory::createMonster(const Vec2& spawnPosition)
 	return monster;
 }
 
-Hero* ActorFactory::createHero(const Vec2& spawnPosition)
+void ActorFactory::updateConfig(GameActor*actor, const ActorConfig & config)
+{
+	actor->heal(config.health);
+	actor->setPosition(config.position);
+	actor->setMaxSpeed(config.speed);
+}
+
+Hero* ActorFactory::createHero(const ActorConfig& config)
 {
 	auto body = PhysicsBody::createCircle( 30, PhysicsMaterial( 1.0f, 1.0f, 0.0f ));
 	body->setCategoryBitmask( static_cast<int>( CollisionBitmasks::HERO ));
@@ -57,11 +63,11 @@ Hero* ActorFactory::createHero(const Vec2& spawnPosition)
 	);
 	body->setContactTestBitmask( static_cast<int>( CollisionBitmasks::MONSTER ));
 
-	auto hero = createNode<Hero, ActorType>(ActorType::HERO);
+	auto hero = createNode<Hero, ActorConfig>(ActorType::HERO);
 	hero->setPhysicsBody(body);
 	hero->takeWeapon(weaponFactory.createWeapon(WeaponType::RANGE));
-	hero->heal(100);
-	hero->setPosition(spawnPosition);
+	updateConfig(hero, config);
+
 	auto sprite = Sprite::create(SpritePaths::HERO);
 	sprite->setRotation(180);
 	sprite->setAnchorPoint(Vec2(0.5f, 0.3f));

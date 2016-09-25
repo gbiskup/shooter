@@ -2,12 +2,13 @@
 #include "cocos2d.h"
 #include "GameActor.h"
 #include "MeleeWeapon.h"
+#include "ActorConfig.h"
 
 class Monster : public GameActor
 {
 public:
-	Monster(const ActorType& actorType) : 
-		GameActor::GameActor(actorType)
+	Monster(const ActorConfig& config) : 
+		GameActor::GameActor(config)
 	{};
 	bool init();
 	void die() override;

@@ -1,5 +1,16 @@
 #include "GameActor.h"
 #include "CollisionBitMasks.h"
+#include "ActorConfig.h"
+
+GameActor::GameActor(const ActorConfig & config):
+	config(config)
+{
+}
+
+const ActorType & GameActor::getType() const
+{
+	return config.getType();
+}
 
 bool GameActor::init()
 {

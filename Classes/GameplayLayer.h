@@ -8,6 +8,8 @@
 using namespace cocos2d;
 using namespace std;
 
+class MonsterWave;
+
 class GameplayLayer : public Layer
 {
 public:
@@ -22,6 +24,7 @@ private:
 	void initKeyboardController();
 	void initMouseController();
 	void initCollisionController();
+	void initLevel();
 	void mouseDownHandler(EventMouse*);
 	void mouseUpHandler(EventMouse*);
 	void mouseMoveHandler(EventMouse*);
@@ -32,6 +35,7 @@ private:
 	void showGameOver();
 	void initHealtLabel();
 	void updateHealthLabel();
+	void updateMonsterWave(float);
 	Vec2 getScreenCenter();
 
 	ActorFactory actorFactory;
@@ -40,6 +44,7 @@ private:
 	EventListenerMouse * mouseEventListener;
 	EventListenerKeyboard * keyboardListener;
 	EventListenerPhysicsContact * contactListener;
+	MonsterWave* wave;
 	PhysicsWorld* world;
 	Hero* hero;
 	Label* healthLabel;

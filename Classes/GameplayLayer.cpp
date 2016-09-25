@@ -6,6 +6,8 @@
 #include "ActorFactory.h"
 #include "CollisionBitMasks.h"
 #include "ActionsController.h"
+#include "ActorConfig.h"
+#include "MonsterWave.h"
 
 GameplayLayer::~GameplayLayer()
 {
@@ -52,13 +54,19 @@ bool GameplayLayer::init()
 	initKeyboardController();
 	initMouseController();
 	initCollisionController();
-	spawnMonsters();
+	initLevel();
 	this->scheduleUpdate();
 	return true;
 }
 
+void GameplayLayer::initLevel()
+{
+	wave = new MonsterWave();
+}
+
 void GameplayLayer::update(float delta)
 {
+	updateMonsterWave(delta);
 	if (hero->isDead())
 	{
 		unscheduleUpdate();
@@ -67,16 +75,47 @@ void GameplayLayer::update(float delta)
 	updateHealthLabel();
 }
 
+void GameplayLayer::updateMonsterWave(float delta)
+{
+	if (wave != nullptr)
+	{
+		wave->delay -= delta;
+
+		if (wave->delay <= 0)
+		{
+			spawnMonsters();
+		}
+	}
+}
+
 void GameplayLayer::initHero()
 {
 	auto visibleSize = Director::getInstance()->getVisibleSize();
-	hero = dynamic_cast<Hero*>(actorFactory.createActorOfType( ActorType::HERO, Point( visibleSize.width/2, visibleSize.height/2 )));
+	auto config = ActorConfig(ActorType::HERO);
+	config.health = 100;
+	config.speed = 200;
+	config.position.x = visibleSize.width / 2;
+	config.position.y = visibleSize.height / 2;
+	hero = dynamic_cast<Hero*>(actorFactory.createActorOfType(config));
 	addChild(hero);
 }
 
 void GameplayLayer::spawnMonsters()
 {
-	auto visibleSize = Director::getInstance()->getVisibleSize();
+	for (auto& config : wave->getConfigs())
+	{
+		auto monster = dynamic_cast<Monster*>(actorFactory.createActorOfType(config));
+		addChild(monster, 0);
+		monster->followTarget(hero);
+	}
+	
+	/*wave->~MonsterWave();
+	wave = nullptr;*/
+	wave->delay = 10;
+	
+	//for ()
+
+	/*auto visibleSize = Director::getInstance()->getVisibleSize();
 	auto monster = actorFactory.createMonster(Point(-visibleSize.width * 0.25f, visibleSize.height / 3));
 	addChild(monster, 0);
 	monster->followTarget(hero);
@@ -87,7 +126,7 @@ void GameplayLayer::spawnMonsters()
 
 	monster = actorFactory.createMonster(Point(visibleSize.width * 0.5f, -visibleSize.height * 0.5));
 	addChild(monster, 0);
-	monster->followTarget(hero);
+	monster->followTarget(hero);*/
 }
 
 void GameplayLayer::initMouseController()

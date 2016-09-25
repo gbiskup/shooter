@@ -1,6 +1,7 @@
 #pragma once
 #include "cocos2d.h"
 #include "GameActor.h"
+#include "ActorConfig.h"
 
 using namespace cocos2d;
 
@@ -8,7 +9,7 @@ using namespace cocos2d;
 class Hero : public GameActor
 {
 public:
-	Hero(const ActorType& actorType) :
-		GameActor(actorType)
+	Hero(const ActorConfig& config) :
+		GameActor(config)
 	{};
 };
