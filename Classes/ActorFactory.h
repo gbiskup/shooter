@@ -15,7 +15,7 @@ using namespace std;
 class ActorFactory : public GameNodeFactory
 {
 public:
-	GameActor * createActorOfType(const ActorConfig&);
+	GameActor * createActorNode(const ActorConfig&);
 	Hero * createHero(const ActorConfig&);
 	Monster * createMonster(const ActorConfig&);
 private:

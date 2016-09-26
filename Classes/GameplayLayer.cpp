@@ -25,6 +25,7 @@ Scene* GameplayLayer::createScene()
 
 void GameplayLayer::initWorld( Scene* scene )
 {
+	//scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
 	scene->getPhysicsWorld()->setGravity(Vec2::ZERO);
 
 	auto visibleSize = Director::getInstance()->getVisibleSize();
@@ -61,7 +62,14 @@ bool GameplayLayer::init()
 
 void GameplayLayer::initLevel()
 {
-	wave = new MonsterWave();
+	currentLevel.setRandomWave();
+	timeToSpawn = firstWaveDelay;
+}
+
+void GameplayLayer::startNextWave()
+{
+	timeToSpawn = currentLevel.getCurrentWave().delay;
+	currentLevel.setRandomWave();
 }
 
 void GameplayLayer::update(float delta)
@@ -77,13 +85,13 @@ void GameplayLayer::update(float delta)
 
 void GameplayLayer::updateMonsterWave(float delta)
 {
-	if (wave != nullptr)
+	if (!currentLevel.isOver())
 	{
-		wave->delay -= delta;
-
-		if (wave->delay <= 0)
+		timeToSpawn -= delta;
+		if (timeToSpawn <= 0)
 		{
 			spawnMonsters();
+			startNextWave();
 		}
 	}
 }
@@ -91,42 +99,23 @@ void GameplayLayer::updateMonsterWave(float delta)
 void GameplayLayer::initHero()
 {
 	auto visibleSize = Director::getInstance()->getVisibleSize();
-	auto config = ActorConfig(ActorType::HERO);
-	config.health = 100;
-	config.speed = 200;
+	auto config = ActorConfig::getHeroConfig();
 	config.position.x = visibleSize.width / 2;
 	config.position.y = visibleSize.height / 2;
-	hero = dynamic_cast<Hero*>(actorFactory.createActorOfType(config));
+	hero = dynamic_cast<Hero*>(actorFactory.createActorNode(config));
 	addChild(hero);
 }
 
 void GameplayLayer::spawnMonsters()
 {
-	for (auto& config : wave->getConfigs())
+	auto wave = currentLevel.getCurrentWave();
+	for (auto& config : wave.getConfigs())
 	{
-		auto monster = dynamic_cast<Monster*>(actorFactory.createActorOfType(config));
+		auto monster = dynamic_cast<Monster*>(actorFactory.createActorNode(config));
 		addChild(monster, 0);
 		monster->followTarget(hero);
 	}
-	
-	/*wave->~MonsterWave();
-	wave = nullptr;*/
-	wave->delay = 10;
-	
-	//for ()
 
-	/*auto visibleSize = Director::getInstance()->getVisibleSize();
-	auto monster = actorFactory.createMonster(Point(-visibleSize.width * 0.25f, visibleSize.height / 3));
-	addChild(monster, 0);
-	monster->followTarget(hero);
-
-	monster = actorFactory.createMonster(Point(visibleSize.width * 1.4f, visibleSize.height * 1.5));
-	addChild(monster, 0);
-	monster->followTarget(hero);
-
-	monster = actorFactory.createMonster(Point(visibleSize.width * 0.5f, -visibleSize.height * 0.5));
-	addChild(monster, 0);
-	monster->followTarget(hero);*/
 }
 
 void GameplayLayer::initMouseController()

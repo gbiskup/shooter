@@ -70,7 +70,10 @@
     <Filter Include="src\gameplay\weapon\melee">
       <UniqueIdentifier>{a28eac0a-b70a-4494-aa38-67fc5481f8c9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\gameplay\waves">
+    <Filter Include="src\gameplay\level">
+      <UniqueIdentifier>{f738d646-6e33-4df8-a3ab-ad493f1cb315}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\gameplay\level\waves">
       <UniqueIdentifier>{f0d2f3a0-0029-4214-b724-360f815b006d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -124,10 +127,13 @@
       <Filter>src\gameplay\weapon\range</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\MonsterWave.cpp">
-      <Filter>src\gameplay\waves</Filter>
+      <Filter>src\gameplay\level\waves</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\ActorConfig.cpp">
-      <Filter>src\gameplay\waves</Filter>
+      <Filter>src\gameplay\level\waves</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Level.cpp">
+      <Filter>src\gameplay\level</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -192,13 +198,16 @@
       <Filter>src\gameplay\weapon\range</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\MonsterWave.h">
-      <Filter>src\gameplay\waves</Filter>
+      <Filter>src\gameplay\level\waves</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\ActorConfig.h">
-      <Filter>src\gameplay\waves</Filter>
+      <Filter>src\gameplay\level\waves</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\ActorType.h">
       <Filter>src\gameplay\actors\baseActor</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Level.h">
+      <Filter>src\gameplay\level</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

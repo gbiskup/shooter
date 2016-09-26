@@ -22,6 +22,6 @@ AbstractWeapon * WeaponFactory::createWeapon(const WeaponType &type)
 MeleeWeapon * WeaponFactory::createMeleeWeapon()
 {
 	auto melee = createNode<MeleeWeapon, WeaponType>(WeaponType::MELEE);
-	melee->setDamage(20);
+	melee->setDamage(15);
 	return melee;
 }

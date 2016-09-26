@@ -26,7 +26,7 @@ void GameActor::takeWeapon(AbstractWeapon * weaponToUse)
 {
 	if (weapon != nullptr)
 	{
-		// Stop using an old weapon if you have any
+		// Stop using the old weapon if you have any
 		stopAttack();
 	}
 	weapon = weaponToUse;

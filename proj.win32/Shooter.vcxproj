@@ -155,6 +155,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\GameplayLayer.cpp" />
     <ClCompile Include="..\Classes\Hero.cpp" />
     <ClCompile Include="..\Classes\KeyboardController.cpp" />
+    <ClCompile Include="..\Classes\Level.cpp" />
     <ClCompile Include="..\Classes\MainMenuLayer.cpp" />
     <ClCompile Include="..\Classes\MeleeWeapon.cpp" />
     <ClCompile Include="..\Classes\Monster.cpp" />
@@ -177,6 +178,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\GameActor.h" />
     <ClInclude Include="..\Classes\GameNodeFactory.h" />
     <ClInclude Include="..\Classes\GameplayLayer.h" />
+    <ClInclude Include="..\Classes\Level.h" />
     <ClInclude Include="..\Classes\MeleeWeapon.h" />
     <ClInclude Include="..\Classes\Hero.h" />
     <ClInclude Include="..\Classes\KeyboardController.h" />

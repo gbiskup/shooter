@@ -4,20 +4,15 @@
 #include "AbstractWeapon.h"
 #include "ActorType.h"
 
-class ActorConfig
+struct ActorConfig
 {
-public:
-	ActorConfig(const ActorType& type) :
-		type(type) 
-	{};
-	~ActorConfig()
-	{};
+	static ActorConfig getHeroConfig();
+	static ActorConfig getMonsterConfig(const MonsterType&);
 	const ActorType getType() const;
 	int health;
 	float speed;
+	float size;
 	Vec2 position;
-
-private:
-	const ActorType type;
+	ActorType type;
 	WeaponType weaponType;
 };

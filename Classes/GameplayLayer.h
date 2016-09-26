@@ -4,6 +4,7 @@
 #include "CollisionController.h"
 #include "ActorFactory.h"
 #include "Hero.h"
+#include "Level.h"
 
 using namespace cocos2d;
 using namespace std;
@@ -36,17 +37,20 @@ private:
 	void initHealtLabel();
 	void updateHealthLabel();
 	void updateMonsterWave(float);
+	void startNextWave();
 	Vec2 getScreenCenter();
 
+	Level currentLevel;
 	ActorFactory actorFactory;
 	KeyboardController keyboardController;
 	CollisionController collisionController;
 	EventListenerMouse * mouseEventListener;
 	EventListenerKeyboard * keyboardListener;
 	EventListenerPhysicsContact * contactListener;
-	MonsterWave* wave;
 	PhysicsWorld* world;
 	Hero* hero;
 	Label* healthLabel;
+	float timeToSpawn = 0;
 	int lastShownHealth = 0; // To prevent constant health label refreshing
+	const int firstWaveDelay = 3;
 };

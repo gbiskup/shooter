@@ -5,7 +5,7 @@
 using namespace cocos2d;
 using namespace std;
 
-// This class stores and calls callback function mapped to key codes on keyboard events
+// This class stores and calls callback function mapped to key codes when keyboard events happen
 class KeyboardController
 {
 public:
