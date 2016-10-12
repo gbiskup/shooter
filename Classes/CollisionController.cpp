@@ -5,6 +5,7 @@ bool CollisionController::onCollisionBegin(PhysicsContact& contact)
 {
 	auto bodyA = contact.getShapeA()->getBody();
 	auto bodyB = contact.getShapeB()->getBody();
+	contactData = contact.getContactData();
 	if (!handleBulletCollision(bodyA, bodyB) && !handleBulletCollision(bodyB, bodyA))
 	{
 		handleActorCollision(bodyA, bodyB, true);
@@ -31,6 +32,7 @@ bool CollisionController::handleBulletCollision(PhysicsBody *bodyA, PhysicsBody 
 		{
 			// ..and the second is an actor. Do damage.
 			damageActorWithBullet(bullet, actor);
+			actor->showWound( contactData->points[0] );
 		}
 		// TODO: don't remove piercing bullets
 		bullet->removeFromParent();

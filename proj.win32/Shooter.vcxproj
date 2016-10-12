@@ -160,9 +160,11 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\MeleeWeapon.cpp" />
     <ClCompile Include="..\Classes\Monster.cpp" />
     <ClCompile Include="..\Classes\MonsterWave.cpp" />
+    <ClCompile Include="..\Classes\PhysicsShapeCache.cpp" />
     <ClCompile Include="..\Classes\RangeWeapon.cpp" />
     <ClCompile Include="..\Classes\WeaponFactory.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="pugixml\src\pugixml.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Classes\ActionsController.h" />
@@ -186,9 +188,13 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\Monster.h" />
     <ClInclude Include="..\Classes\ActorConfig.h" />
     <ClInclude Include="..\Classes\MonsterWave.h" />
+    <ClInclude Include="..\Classes\PhysicsShapeCache.h" />
+    <ClInclude Include="..\Classes\PhysicsShapeLoader.h" />
     <ClInclude Include="..\Classes\RangeWeapon.h" />
     <ClInclude Include="..\Classes\WeaponFactory.h" />
     <ClInclude Include="main.h" />
+    <ClInclude Include="pugixml\src\pugiconfig.hpp" />
+    <ClInclude Include="pugixml\src\pugixml.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\cocos2d\cocos\2d\libcocos2d.vcxproj">

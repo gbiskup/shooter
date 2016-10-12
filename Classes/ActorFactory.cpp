@@ -3,6 +3,7 @@
 #include "AbstractWeapon.h"
 #include "AssetConstants.h"
 #include "ActorConfig.h"
+#include "PhysicsShapeCache.h"
 
 GameActor * ActorFactory::createActorNode(const ActorConfig& actorConfig)
 {
@@ -27,8 +28,8 @@ Monster * ActorFactory::createMonster(const ActorConfig& config)
 	auto monster = createNode<Monster, ActorConfig>(config);
 	updateConfig(monster, config);
 
-	auto body = PhysicsBody::createCircle(config.size * 40.f, PhysicsMaterial(1.0f, 1.0f, 0.0f));
-	body->setLinearDamping(0.6);
+	/*auto body = PhysicsBody::createCircle(config.size * 40.f, PhysicsMaterial(1.0f, 1.0f, 0.0f));
+	body->setLinearDamping(0.6f);
 	body->setCategoryBitmask(static_cast<int>(CollisionBitmasks::MONSTER));
 	body->setCollisionBitmask(
 		static_cast <int>(CollisionBitmasks::BULLET) |
@@ -39,12 +40,26 @@ Monster * ActorFactory::createMonster(const ActorConfig& config)
 		static_cast <int>(CollisionBitmasks::BULLET) |
 		static_cast<int>(CollisionBitmasks::HERO)
 	);
-	monster->setPhysicsBody( body );
+	monster->setPhysicsBody(body);*/
+
+	PhysicsLoader::PhysicsShapeCache::getInstance()->setBodyOnSprite("monster", monster);
 	
+	auto body = monster->getPhysicsBody();
+	body->setCategoryBitmask(static_cast<int>(CollisionBitmasks::MONSTER));
+	body->setCollisionBitmask(
+		static_cast <int>(CollisionBitmasks::BULLET) |
+		static_cast <int>(CollisionBitmasks::HERO) |
+		static_cast <int>(CollisionBitmasks::MONSTER)
+	);
+	body->setContactTestBitmask(
+		static_cast <int>(CollisionBitmasks::BULLET) |
+		static_cast<int>(CollisionBitmasks::HERO)
+	);
+
 	auto sprite = Sprite::create( SpritePaths::MONSTER );
-	sprite->setRotation( 180 );
-	sprite->setScale( config.size );
+	//sprite->setRotation( 180 );
 	monster->addChild( sprite );
+	monster->setScale(config.size);
 
 	return monster;
 }
@@ -62,7 +77,7 @@ Hero* ActorFactory::createHero(const ActorConfig& config)
 	updateConfig(hero, config);
 
 	auto body = PhysicsBody::createCircle(config.size * 30.f, PhysicsMaterial(1.0f, 1.0f, 0.0f));
-	body->setLinearDamping(0.6);
+	body->setLinearDamping(0.6f);
 	body->setCategoryBitmask(static_cast<int>(CollisionBitmasks::HERO));
 	body->setCollisionBitmask(
 		static_cast<int>(CollisionBitmasks::MONSTER) |
@@ -72,10 +87,10 @@ Hero* ActorFactory::createHero(const ActorConfig& config)
 	hero->setPhysicsBody(body);
 
 	auto sprite = Sprite::create(SpritePaths::HERO);
-	sprite->setRotation(180);
+
 	sprite->setAnchorPoint(Vec2(0.5f, 0.3f));
-	sprite->setScale(config.size);
 	hero->addChild(sprite);
+	hero->setScale(config.size);
 	return hero;
 }
 

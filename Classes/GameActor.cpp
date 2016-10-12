@@ -57,6 +57,20 @@ void GameActor::takeDamage( int damagePoints )
 	}
 }
 
+void GameActor::showWound(const Vec2 position)
+{
+	ParticleSystemQuad* blood = ParticleSystemQuad::create("particles/SplatterBlood.plist");
+	blood->setScale(3.5f/getScale());
+	blood->setRotation(180);
+	blood->setPosition(convertToNodeSpace(position));
+	addChild(blood);
+}
+
+void GameActor::lockMovement(bool lock)
+{
+	lockMoveDirectionAtLookPoint = lock;
+}
+
 void GameActor::die()
 {
 	dead = true;
@@ -92,9 +106,10 @@ void GameActor::update( float dt )
 
 void GameActor::updateAngle()
 {
-	auto position = getPosition();
-	position.subtract(lookAtPoint);
-	setRotation( -CC_RADIANS_TO_DEGREES( position.getAngle() ));
+	moveDirection = lookAtPoint;
+	moveDirection.subtract(getPosition());
+	setRotation(-CC_RADIANS_TO_DEGREES(moveDirection.getAngle()));
+	CCLOG("rotation %f", CC_RADIANS_TO_DEGREES(moveDirection.getAngle()));
 }
 
 void GameActor::startAttack()
@@ -150,14 +165,10 @@ void GameActor::applyVelocity()
 	// Prevent extra speed on diagonal directions
 	desiredVelocity.normalize();
 	desiredVelocity.scale(maxSpeed);
-	
-	auto body = getPhysicsBody();
-	auto currentVelocity = body->getVelocity();
-	auto dV = Vec2( desiredVelocity.x - currentVelocity.x, desiredVelocity.y - currentVelocity.y );
-
 	if (lockMoveDirectionAtLookPoint)
 	{
-		desiredVelocity = desiredVelocity.rotateByAngle(Vec2::ZERO, -CC_DEGREES_TO_RADIANS(getRotation() - 90));
+		// Rotate movement vector 90 degrees right, + angle between lookAtPoint and x axis so moving up will move in direction of looking (actor with 0 degrees rotation faces right)
+		desiredVelocity = desiredVelocity.rotateByAngle(Vec2::ZERO, moveDirection.getAngle() + CC_DEGREES_TO_RADIANS(-90));
 	}
 	getPhysicsBody()->setVelocity(desiredVelocity);
 }

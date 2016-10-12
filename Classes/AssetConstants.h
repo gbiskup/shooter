@@ -15,3 +15,8 @@ namespace SpritePaths
 	const string BULLET = "sprites/bullet.png";
 	const string MONSTER = "sprites/monster.png";
 }
+
+namespace SpriteShapePaths
+{
+	const string MONSTER = "sprites/MonsterShape.xml";
+}

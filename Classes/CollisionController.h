@@ -12,6 +12,7 @@ public:
 	bool onCollisionEnded(PhysicsContact& contact);
 
 private:
+	PhysicsContactData const* contactData;
 	bool handleBulletCollision(PhysicsBody*, PhysicsBody*);
 	void damageActorWithBullet(const Bullet*, GameActor*);
 	bool handleActorCollision(PhysicsBody*, PhysicsBody*, bool);

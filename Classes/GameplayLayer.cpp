@@ -8,6 +8,8 @@
 #include "ActionsController.h"
 #include "ActorConfig.h"
 #include "MonsterWave.h"
+#include "PhysicsShapeCache.h"
+#include "AssetConstants.h"
 
 GameplayLayer::~GameplayLayer()
 {
@@ -25,6 +27,8 @@ Scene* GameplayLayer::createScene()
 
 void GameplayLayer::initWorld( Scene* scene )
 {
+	PhysicsLoader::PhysicsShapeCache::getInstance()->addShapesWithFile(SpriteShapePaths::MONSTER);
+
 	//scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
 	scene->getPhysicsWorld()->setGravity(Vec2::ZERO);
 
@@ -115,7 +119,6 @@ void GameplayLayer::spawnMonsters()
 		addChild(monster, 0);
 		monster->followTarget(hero);
 	}
-
 }
 
 void GameplayLayer::initMouseController()
@@ -141,12 +144,27 @@ void GameplayLayer::initCollisionController()
 
 void GameplayLayer::mouseDownHandler(EventMouse * eventMouse)
 {
-	hero->actionsController.startAction(ActorActionType::ATTACK);
+	if (eventMouse->getMouseButton() == 0)
+	{
+		hero->actionsController.startAction(ActorActionType::ATTACK);
+	}
+	else if (eventMouse->getMouseButton() == 1)
+	{
+		hero->lockMovement(true);
+	}
+	
 }
 
 void GameplayLayer::mouseUpHandler(EventMouse * eventMouse)
 {
-	hero->actionsController.stopAction(ActorActionType::ATTACK);
+	if (eventMouse->getMouseButton() == 0)
+	{
+		hero->actionsController.stopAction(ActorActionType::ATTACK);
+	}
+	else if (eventMouse->getMouseButton() == 1)
+	{
+		hero->lockMovement(false);
+	}
 }
 
 void GameplayLayer::mouseMoveHandler(EventMouse * eventMouse)

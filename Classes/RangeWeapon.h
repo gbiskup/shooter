@@ -13,7 +13,7 @@ public:
 		AbstractWeapon( weaponType ),
 		bulletType (bulletType)
 	{
-		damageRate = 0.15f;
+		damageRate = 0.10f;
 	};
 	void triggerAttack() override;
 

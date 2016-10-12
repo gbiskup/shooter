@@ -6,7 +6,7 @@ using namespace std;
 Level::Level()
 {
 	MonsterWave wave1;
-	wave1.delay = 6;
+	wave1.delay = 8;
 	wave1.addMonster(ActorConfig::getMonsterConfig(MonsterType::SUPER_LIGHT));
 	wave1.addMonster(ActorConfig::getMonsterConfig(MonsterType::SUPER_LIGHT));
 	wave1.addMonster(ActorConfig::getMonsterConfig(MonsterType::SUPER_LIGHT));

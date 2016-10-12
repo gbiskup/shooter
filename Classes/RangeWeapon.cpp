@@ -8,9 +8,9 @@ void RangeWeapon::triggerAttack()
 
 Vec2 RangeWeapon::getBulletSpawnOffset()
 {
-	auto parentSize = dynamic_cast<PhysicsShapeCircle*>(getParent()->getPhysicsBody()->getShape(0));
+	auto parentShape = dynamic_cast<PhysicsShapeCircle*>(getParent()->getPhysicsBody()->getShape(0));
 	auto parentAngle = getParent()->getRotation();
-	Vec2 offset(-parentSize->getRadius(), 0);
+	Vec2 offset(parentShape->getRadius(), 0);
 	offset = offset.rotateByAngle(Vec2::ZERO, -CC_DEGREES_TO_RADIANS(parentAngle));
 	return offset;
 }

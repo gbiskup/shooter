@@ -76,6 +76,12 @@
     <Filter Include="src\gameplay\level\waves">
       <UniqueIdentifier>{f0d2f3a0-0029-4214-b724-360f815b006d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\physicsLoader">
+      <UniqueIdentifier>{43d8a480-9504-4d57-ae87-457ba3ecfd92}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="pugixml">
+      <UniqueIdentifier>{14c19b7c-b886-4133-8a40-c01964429fbb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -134,6 +140,12 @@
     </ClCompile>
     <ClCompile Include="..\Classes\Level.cpp">
       <Filter>src\gameplay\level</Filter>
+    </ClCompile>
+    <ClCompile Include="pugixml\src\pugixml.cpp">
+      <Filter>pugixml</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PhysicsShapeCache.cpp">
+      <Filter>src\physicsLoader</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -208,6 +220,18 @@
     </ClInclude>
     <ClInclude Include="..\Classes\Level.h">
       <Filter>src\gameplay\level</Filter>
+    </ClInclude>
+    <ClInclude Include="pugixml\src\pugiconfig.hpp">
+      <Filter>pugixml</Filter>
+    </ClInclude>
+    <ClInclude Include="pugixml\src\pugixml.hpp">
+      <Filter>pugixml</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PhysicsShapeLoader.h">
+      <Filter>src\physicsLoader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PhysicsShapeCache.h">
+      <Filter>src\physicsLoader</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

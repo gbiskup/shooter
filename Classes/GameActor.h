@@ -39,6 +39,8 @@ public:
 	void lookAt(const Vec2&);
 	void heal(int);
 	void takeDamage(int);
+	void showWound(const Vec2);
+	void lockMovement(bool);
 	ActionsController actionsController;
 
 protected:
@@ -48,6 +50,7 @@ protected:
 	void stayIdle();
 	Vec2 desiredVelocity; // vector telling what direction this actor is trying to move
 	Vec2 lookAtPoint;
+	Vec2 moveDirection;
 	AbstractWeapon* weapon = nullptr;
 	float maxSpeed = 300.f;
 	int health = 0;
