@@ -112,6 +112,7 @@ void GameplayLayer::initHero()
 
 void GameplayLayer::spawnMonsters()
 {
+	return;
 	auto wave = currentLevel.getCurrentWave();
 	for (auto& config : wave.getConfigs())
 	{

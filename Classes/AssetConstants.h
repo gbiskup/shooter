@@ -16,6 +16,12 @@ namespace SpritePaths
 	const string MONSTER = "sprites/monster.png";
 }
 
+namespace SpineAnimationPaths
+{
+	const string SURVIVOR_JSON = "sprites/survivor.json";
+	const string SURVIVOR_ATLAS = "sprites/survivor.atlas";
+}
+
 namespace SpriteShapePaths
 {
 	const string MONSTER = "sprites/MonsterShape.xml";

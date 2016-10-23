@@ -7,6 +7,7 @@ class GameActor;
 class MeleeWeapon : public AbstractWeapon
 {
 public:
+	Vec2 woundPosition;
 	MeleeWeapon(const WeaponType& type) : 
 		AbstractWeapon(type) 
 	{
@@ -30,5 +31,5 @@ protected:
 
 private:
 	GameActor* target = nullptr;
-	int damage = 20;
+	int damage = 0;// 20;
 };

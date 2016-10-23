@@ -12,4 +12,8 @@ public:
 	Hero(const ActorConfig& config) :
 		GameActor(config)
 	{};
+protected:
+	virtual void updateAnimation() override;
+	virtual void startAttack() override;
+	virtual void stopAttack() override;
 };

@@ -52,6 +52,7 @@ void Monster::startAttack()
 	if (meleeWeapon)
 	{
 		meleeWeapon->setTarget(target);
+		meleeWeapon->woundPosition = meleeTargetPosition;
 	}
 	GameActor::startAttack();
 }

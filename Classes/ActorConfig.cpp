@@ -7,7 +7,7 @@ ActorConfig ActorConfig::getHeroConfig()
 	config.type = ActorType::HERO;
 	config.health = 100;
 	config.speed = 210;
-	config.size = 1.f;
+	config.size = 0.4f;
 	config.weaponType = WeaponType::RANGE;
 	return config;
 }

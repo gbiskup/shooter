@@ -4,6 +4,7 @@
 #include "AssetConstants.h"
 #include "ActorConfig.h"
 #include "PhysicsShapeCache.h"
+#include "spine\spine-cocos2dx.h"
 
 GameActor * ActorFactory::createActorNode(const ActorConfig& actorConfig)
 {
@@ -57,7 +58,6 @@ Monster * ActorFactory::createMonster(const ActorConfig& config)
 	);
 
 	auto sprite = Sprite::create( SpritePaths::MONSTER );
-	//sprite->setRotation( 180 );
 	monster->addChild( sprite );
 	monster->setScale(config.size);
 
@@ -73,10 +73,14 @@ void ActorFactory::updateConfig(GameActor*actor, const ActorConfig & config)
 
 Hero* ActorFactory::createHero(const ActorConfig& config)
 {
+	auto skeleton = spine::SkeletonAnimation::createWithFile(SpineAnimationPaths::SURVIVOR_JSON, SpineAnimationPaths::SURVIVOR_ATLAS, config.size);
+	
 	auto hero = createNode<Hero, ActorConfig>(config);
 	updateConfig(hero, config);
 
-	auto body = PhysicsBody::createCircle(config.size * 30.f, PhysicsMaterial(1.0f, 1.0f, 0.0f));
+	hero->setAnimation(skeleton);
+
+	auto body = PhysicsBody::createCircle(25.f, PhysicsMaterial(1.0f, 1.0f, 0.0f));
 	body->setLinearDamping(0.6f);
 	body->setCategoryBitmask(static_cast<int>(CollisionBitmasks::HERO));
 	body->setCollisionBitmask(
@@ -85,12 +89,6 @@ Hero* ActorFactory::createHero(const ActorConfig& config)
 	);
 	body->setContactTestBitmask(static_cast<int>(CollisionBitmasks::MONSTER));
 	hero->setPhysicsBody(body);
-
-	auto sprite = Sprite::create(SpritePaths::HERO);
-
-	sprite->setAnchorPoint(Vec2(0.5f, 0.3f));
-	hero->addChild(sprite);
-	hero->setScale(config.size);
 	return hero;
 }
 

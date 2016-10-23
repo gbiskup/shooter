@@ -233,6 +233,9 @@
     <ClInclude Include="..\Classes\PhysicsShapeCache.h">
       <Filter>src\physicsLoader</Filter>
     </ClInclude>
+    <ClInclude Include="..\Classes\HeroAnimationNames.h">
+      <Filter>src\gameplay\actors\hero</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="game.rc">

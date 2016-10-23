@@ -78,6 +78,7 @@ bool CollisionController::handleMelleeAttackStart(GameActor * actorA, GameActor 
 {
 	if (actorA->getType() == ActorType::MONSTER && actorB->getType() == ActorType::HERO)
 	{
+		actorA->setMeleeTargetAt(contactData->points[0]);
 		actorA->actionsController.startAction(ActorActionType::ATTACK);
 		return true;
 	}

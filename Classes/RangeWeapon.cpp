@@ -18,6 +18,7 @@ Vec2 RangeWeapon::getBulletSpawnOffset()
 void RangeWeapon::spawnBullet()
 {
 	auto spawnPosition = getParent()->getPosition();
+	spawnPosition.y -= 10;
 	auto spawnOffset = getBulletSpawnOffset();
 	auto bullet = bulletFactory.createBulletOfType( bulletType, spawnPosition, spawnOffset );
 	

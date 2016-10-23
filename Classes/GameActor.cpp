@@ -71,6 +71,17 @@ void GameActor::lockMovement(bool lock)
 	lockMoveDirectionAtLookPoint = lock;
 }
 
+void GameActor::setMeleeTargetAt(const Vec2& position)
+{
+	meleeTargetPosition = position;
+}
+
+void GameActor::setAnimation(spine::SkeletonAnimation * animation)
+{
+	this->animation = animation;
+	addChild(animation);
+}
+
 void GameActor::die()
 {
 	dead = true;
@@ -97,6 +108,7 @@ void GameActor::update( float dt )
 	if (!actionsController.isActionActive(ActorActionType::IDLE))
 	{
 		updateMoveDirection();
+		updateAnimation();
 		applyVelocity();
 		updateAngle();
 		updateAttack();
@@ -104,12 +116,16 @@ void GameActor::update( float dt )
 	actionsController.clearDirtyFlags();
 }
 
+void GameActor::updateAnimation()
+{
+
+}
+
 void GameActor::updateAngle()
 {
-	moveDirection = lookAtPoint;
-	moveDirection.subtract(getPosition());
-	setRotation(-CC_RADIANS_TO_DEGREES(moveDirection.getAngle()));
-	CCLOG("rotation %f", CC_RADIANS_TO_DEGREES(moveDirection.getAngle()));
+	lookDirection = lookAtPoint;
+	lookDirection.subtract(getPosition());
+	setRotation(-CC_RADIANS_TO_DEGREES(lookDirection.getAngle()));
 }
 
 void GameActor::startAttack()
@@ -168,7 +184,7 @@ void GameActor::applyVelocity()
 	if (lockMoveDirectionAtLookPoint)
 	{
 		// Rotate movement vector 90 degrees right, + angle between lookAtPoint and x axis so moving up will move in direction of looking (actor with 0 degrees rotation faces right)
-		desiredVelocity = desiredVelocity.rotateByAngle(Vec2::ZERO, moveDirection.getAngle() + CC_DEGREES_TO_RADIANS(-90));
+		desiredVelocity = desiredVelocity.rotateByAngle(Vec2::ZERO, lookDirection.getAngle() + CC_DEGREES_TO_RADIANS(-90));
 	}
 	getPhysicsBody()->setVelocity(desiredVelocity);
 }

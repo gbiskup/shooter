@@ -22,5 +22,5 @@ private:
 	Vec2 getBulletSpawnOffset(); // Calculates vector from owner's center to where bullets spawn
 	BulletType bulletType;
 	BulletFactory bulletFactory;
-	const float bulletSpeed = 40.f;
+	const float bulletSpeed = 60.f;
 };
