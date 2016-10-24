@@ -2,20 +2,20 @@
 #include "CollisionBitMasks.h"
 #include "AssetConstants.h"
 
-Bullet * BulletFactory::createBulletOfType(const BulletType& bulletType, Vec2 position, Vec2 offset)
+Bullet * BulletFactory::createBulletOfType(const BulletType& bulletType)
 {
 	Bullet * bullet;
 	switch (bulletType)
 	{
 	default:
 	case BulletType::STANDARD_BULLET:
-		bullet = createStandardBullet( position, offset );
+		bullet = createStandardBullet();
 		break;
 	}
 	return bullet;
 }
 
-Bullet * BulletFactory::createStandardBullet(Vec2 position, Vec2 offset)
+Bullet * BulletFactory::createStandardBullet()
 {
 	const int bulletSize = 5;
 	auto bullet = Bullet::create();
@@ -26,12 +26,6 @@ Bullet * BulletFactory::createStandardBullet(Vec2 position, Vec2 offset)
 	body->setContactTestBitmask(static_cast <int>(CollisionBitmasks::MONSTER) | static_cast<int>(CollisionBitmasks::WORLD_BOUNDS));
 
 	bullet->setPhysicsBody(body);
-	position.add(offset); // Add offset from weaon's owner center
-	
-	offset.normalize();
-	offset.scale(bulletSize);
-	position.add(offset); // Prevent bullet from spawning inside weapon owner's body
-	bullet->setPosition(position);
 
 	bullet->setDamage(5);
 	auto sprite = Sprite::create(SpritePaths::BULLET); // TODO: Use spritesheet

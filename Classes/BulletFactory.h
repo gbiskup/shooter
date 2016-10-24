@@ -6,8 +6,8 @@
 class BulletFactory
 {
 public:
-	Bullet* createBulletOfType(const BulletType&, Vec2, Vec2);
+	Bullet* createBulletOfType(const BulletType&);
 
 private:
-	Bullet* createStandardBullet(Vec2, Vec2);
+	Bullet* createStandardBullet();
 };

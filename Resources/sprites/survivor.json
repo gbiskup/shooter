@@ -1,5 +1,5 @@
 {
-"skeleton": { "hash": "8kG4u0yWFJIVwt2MW1v4SfS6kQA", "spine": "3.4.02", "width": 0, "height": 0, "images": "./images/" },
+"skeleton": { "hash": "WRgOOofzWTpsgWKW2ANSo4gPneE", "spine": "3.4.02", "width": 289.37, "height": 202.84, "images": "./images/" },
 "bones": [
 	{ "name": "root" },
 	{ "name": "head", "parent": "root", "length": 38.85 },
@@ -3997,7 +3997,7 @@
 		"slots": {
 			"muzzle_flash": {
 				"attachment": [
-					{ "time": 0, "name": null },
+					{ "time": 0, "name": "muzzle_flash_01" },
 					{ "time": 0.0333, "name": null },
 					{ "time": 0.0666, "name": null }
 				]
@@ -4146,6 +4146,12 @@
 	},
 	"shoot_rifle": {
 		"slots": {
+			"muzzle_flash": {
+				"attachment": [
+					{ "time": 0, "name": "muzzle_flash_01" },
+					{ "time": 0.0333, "name": null }
+				]
+			},
 			"weapon": {
 				"attachment": [
 					{ "time": 0, "name": "rifle" },

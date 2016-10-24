@@ -13,7 +13,7 @@ public:
 		AbstractWeapon( weaponType ),
 		bulletType (bulletType)
 	{
-		damageRate = 0.10f;
+		damageRate = 0.15f;
 	};
 	void triggerAttack() override;
 
@@ -22,5 +22,5 @@ private:
 	Vec2 getBulletSpawnOffset(); // Calculates vector from owner's center to where bullets spawn
 	BulletType bulletType;
 	BulletFactory bulletFactory;
-	const float bulletSpeed = 60.f;
+	const float bulletSpeed = 1560.f;
 };

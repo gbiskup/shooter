@@ -29,7 +29,7 @@ void GameplayLayer::initWorld( Scene* scene )
 {
 	PhysicsLoader::PhysicsShapeCache::getInstance()->addShapesWithFile(SpriteShapePaths::MONSTER);
 
-	//scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
+	scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
 	scene->getPhysicsWorld()->setGravity(Vec2::ZERO);
 
 	auto visibleSize = Director::getInstance()->getVisibleSize();
